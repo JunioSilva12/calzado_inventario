@@ -1,0 +1,49 @@
+.name,
+.pass {
+  display: flex;
+  margin-bottom: 32px;
+
+  .first-name,
+  .last-name,
+  .password,
+  .repeat-password {
+    margin-right: 32px;
+    width: 100%;
+  }
+}
+
+.span-password {
+  width: 50%;
+  color: #407bff;
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 19px;
+  letter-spacing: -0.015em;
+  display: block;
+  margin-bottom: 10px;
+}
+.email {
+  margin-bottom: 32px;
+  width: 97%;
+}
+
+.checkbox {
+  display: inline;
+}
+
+//tabelet
+@media (max-width: 768px) {
+  .name,.email,.pass{
+    display: flex;
+    flex-direction: column;
+  }
+  .first-name,.password{
+    margin-bottom: 32px;
+  }
+
+  .span-password{
+    width: 100%;
+  }
+}

@@ -1,0 +1,46 @@
+.admin-container{
+  display: flex;
+}
+
+.admin-content{
+  padding: 25px 40px 45px 40px;
+  flex: 1;
+}
+
+.admin-list-container{
+  margin: 45px 0;
+}
+
+/*cards users and categories*/
+.card-item {
+  padding: 20px 17px 18px 16px;
+  vertical-align: middle;
+  margin-bottom: 20px;
+
+}
+
+/*filters*/ 
+.filter{
+  display: flex;
+  justify-content: space-between;
+ /* button{
+    margin-right: 28px;
+  }*/
+  
+}
+
+/*tablet*/
+@media(max-width: 768px){
+  .admin-container{
+    flex-direction: column;
+  }
+  .filter{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    button{
+      margin-bottom: 20px;
+    }
+  }
+}

@@ -1,0 +1,59 @@
+.main-row {
+  display: flex;
+  flex-direction: row;
+}
+.main-row .col-user {
+  width: 80%;
+}
+.main-row .col-buttons {
+  width: 50%;
+}
+.main-row .col-buttons .row-buttons {
+  display: flex;
+  flex-direction: row;
+}
+.main-row .col-buttons .row-buttons .col-btn {
+  width: 50%;
+  margin-left: 10px;
+}
+
+.card-item h2 {
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 25px;
+  letter-spacing: -0.015em;
+}
+.card-item span {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: -0.015em;
+  color: #9e9e9e;
+}
+
+@media (max-width: 768px) {
+  .main-row {
+    display: flex;
+    flex-direction: row;
+  }
+  .main-row .col-user {
+    width: 50%;
+  }
+  .main-row .col-buttons {
+    width: 70%;
+  }
+  .main-row .col-buttons .row-buttons {
+    display: flex;
+    flex-direction: row;
+  }
+  .main-row .col-buttons .row-buttons .col-btn {
+    width: 45%;
+    margin-left: 8px;
+  }
+  .main-row .col-buttons .row-buttons .col-btn a, .main-row .col-buttons .row-buttons .col-btn button {
+    font-size: 15px;
+  }
+}/*# sourceMappingURL=styles.css.map */
