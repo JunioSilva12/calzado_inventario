@@ -8,11 +8,12 @@ export const CLIENT_ID = 'catalogo';
 export const CLIENT_SECRET = 'catalog123';
 
 type LoginResponse = {
+  
   access_token: string;
   token_type: string;
   expires_in: number;
   scope: string;
-  firstName: string;
+  name: string;
   userId: number;
 }
 
@@ -67,8 +68,8 @@ export const isAuthenticated = () => {
   const sessionData = getSessionData() ?? JSON.parse(localStorage.getItem('authData')  ?? '{}');
 
   if(!sessionData.data){return false}
-   // console.log("...b",sessionData);
- // console.log("...c",isTokenValid());
+    console.log("...b",sessionData);
+ console.log("...c",isTokenValid());
  return (sessionData.data.token && isTokenValid()) ?
   true : false
 }
@@ -77,10 +78,11 @@ export const isAllowedByRole = (routesRoles: Role[] = []) => {
   if (routesRoles.length === 0) {
     return true;
   }
-
+ console.log("hay rol: ", routesRoles)
   const { role } = getAccessTokenDecoded();
   console.log("...d",role)
-  return routesRoles.some(role => role?.includes(role));
+  console.log("e..",routesRoles?.includes(role))
+  return routesRoles?.includes(role);
 
 }
 

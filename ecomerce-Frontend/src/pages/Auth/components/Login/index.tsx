@@ -1,6 +1,6 @@
 import ButtonIcon from '../../../../core/components/ButtonIcon';
 import { Link, useNavigate } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
+import  {useForm}  from 'react-hook-form';
 import AuthCard from '../Card';
 import './styles.scss';
 import { makeLogin } from '../../../../core/utils/request';

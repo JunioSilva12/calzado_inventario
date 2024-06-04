@@ -29,9 +29,9 @@ export const makeRequest = (params: AxiosRequestConfig) => {
 
 export const makePrivateRequest = (params: AxiosRequestConfig) => {
   const sessionData =getSessionData() ?? JSON.parse(localStorage.getItem('authData')  ?? '{}');
-
+  //console.log("sessionData..",sessionData.data.token)
   const headers = {
-    'Authorization': `Bearer ${sessionData.access_token}`
+    'Authorization': `Bearer ${sessionData.data.token}`
   }
 
   return makeRequest({ ...params, headers });

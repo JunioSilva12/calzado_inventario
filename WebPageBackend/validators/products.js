@@ -14,16 +14,16 @@ const validatorGetProducts=  [
         check("id")
             .exists()
             .notEmpty(),
-        check("nombre")
+        check("name")
             .exists()
             .notEmpty(),
-        check("descripción")
+        check("description")
             .exists()
             .notEmpty(),
-        check("precio")
+        check("price")
             .exists()
             .notEmpty(),
-        check("imagen")
+        check("imgUrl")
             .exists()
             .notEmpty(),      
         validateResults

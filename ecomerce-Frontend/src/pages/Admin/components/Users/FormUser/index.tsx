@@ -162,7 +162,7 @@ const FormUser = () => {
                   minLength: { value: 8, message: 'este campo debe tener mínimo 5 caracteres' },
                   maxLength: { value: 60, message: 'este campo debe tener máximo 60 caracteres' },
                   pattern: {
-                    value: /(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,
+                    value: /(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,//Contraseña: P@ssw0rd!//Esta contraseña tiene al menos 8 caracteres, incluye al menos una letra mayúscula, una letra minúscula, un número y un carácter especia
                     message: "Valores no corresponden al formato de la contraseña"
                   }
                 }

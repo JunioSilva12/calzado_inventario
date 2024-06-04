@@ -9,11 +9,14 @@ const ENGINE_DB = process.env.ENGINE_DB
 const register = async (req, res) => {
     try {
         const { password, ...rest } = matchedData(req)
+         
 
+        console.log("el resto:",password)
         const user = await usersModel.create({
             ...rest,
             password: await encrypt(password)
         })
+        console.log("nuevo usuario:",user)
         user.set('password', undefined, { strict: false })
 
         const data = {

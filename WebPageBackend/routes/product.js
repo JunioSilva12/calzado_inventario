@@ -10,12 +10,12 @@ const router = Router()
 router.get('/', getProducts)
 router.get(
     '/:id',
- //  [ checkRol('admin', 'user'),validatorGetProducts],
+  //checkRol('ROLE_ADMIN', 'ROLE_OPERATOR'),validatorGetProducts,
    getProductByID
 )
 router.post(
     '/',
-   // [authMiddleware, checkRol('admin'), validatorCreateProducts],
+    [authMiddleware, checkRol('ROLE_ADMIN'), validatorCreateProducts],
     crearProducto
 )
 
@@ -23,7 +23,7 @@ router.post(
 
 router.post(
     '/image',
-   // [authMiddleware, checkRol('admin')],
+    [authMiddleware, checkRol('ROLE_ADMIN')],
     uploadImage.fields([{ name: 'file', maxCount: 1 }]),
     loadFileImage
 )
@@ -31,12 +31,12 @@ router.post(
 
 router.put(
     '/:id',
-  //  [authMiddleware, checkRol('admin'), validatorGetProducts, validatorCreateProducts],
+    [authMiddleware, checkRol('ROLE_ADMIN'),  validatorCreateProducts],
     updateProduct
 )
 router.delete( 
     '/:id',
-  //  [authMiddleware,  checkRol('admin'),  validatorGetProducts],
+    [authMiddleware,  checkRol('ROLE_ADMIN'),  validatorGetProducts],
     delateProduct
 )
 

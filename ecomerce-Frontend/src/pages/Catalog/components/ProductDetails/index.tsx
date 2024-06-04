@@ -21,7 +21,7 @@ const ProductDetails = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    makeRequest({ url: `/products/${productId}` })
+    makeRequest({ url: `/product/${productId}` })
       .then((response: { data: SetStateAction<Product | undefined>; }) => setProduct(response.data))
       .finally(() => setIsLoading(false));
 
@@ -33,10 +33,10 @@ const ProductDetails = () => {
       <div className="card-base border-radius-20 product-details">
         <Link to="/products" className="product-details-goback">
           <div className="icon-goback">
-            <ArrowIcon />
+           <img src={ArrowIcon} />
           </div>
           
-          <h1 className="text-goback">VOLTAR</h1>
+          <h1 className="text-goback">Volver</h1>
         </Link>
         <div className="product-details-info">
 
@@ -44,7 +44,7 @@ const ProductDetails = () => {
           {isLoading ? <ProductInfoLoader /> : (
             <div className="image-price">
               <div className="product-details-card text-center">
-                <img src={product?.imgUrl} alt={product?.name}
+                <img src={`/src/core/assets/images/${product?.imgUrl}`} alt={product?.name}
                   className="product-details-image" />
               </div>
               <div className="product-info-fields">

@@ -35,7 +35,7 @@ const AppRoutes = () => (
       
       {/* Redirecciones */}
       <Route path="/auth" element={<Navigate to="/auth/login" />} />
-      <Route path="/admin" element={<Navigate to="/admin/users" />} />   
+     {<Route path="/admin" element={<Navigate to="/admin/users" />} />   }
     </Routes>
   </Router>
 );

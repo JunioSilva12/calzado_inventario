@@ -2,17 +2,23 @@ const { matchedData } = require('express-validator');
 const { usersModel } = require('../models');
 const { tokenSign } = require('../utils/handleJwt');
 const { handleHttpError } = require('../utils/handleError');
-
+const { encrypt } = require('../utils/handlePassword')
 
 
 // Controlador para crear un nuevo usuario
 const createUser = async (req, res) => {
     try {
-        const { password, ...rest } = matchedData(req)
-
-        const user = await usersModel.create({
-            ...rest,
-            password: await encrypt(password)
+        const { password, ...rest } = matchedData(req.body)
+       // console.log("el resto:",...rest)
+        console.log("req...",req.body); 
+        console.log("password...",password); 
+        const newUser =req.body;
+         const user = await usersModel.create({
+            firstName:newUser.firstName,
+            lastName: newUser.lastName,
+            email: newUser.email,
+            role: newUser.role,
+            password: await encrypt(newUser.password)
         })
         user.set('password', undefined, { strict: false })
 

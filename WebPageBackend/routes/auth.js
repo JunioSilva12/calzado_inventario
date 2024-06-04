@@ -6,7 +6,7 @@ const { validatorLogin, validatorRegister } = require('../validators/auth')
 const router = Router()
 
 
-router.post('/register', validatorRegister, register)
+router.post('/register', register)
 router.post('/login',validatorLogin, login)
 
 
