@@ -15,12 +15,12 @@ type ParamsType = {
 
 const FormCategory = () => {
   // register
-  const {  handleSubmit,  formState: { errors }, setValue } = useForm<FormCategoryState>();
+  const { register,  handleSubmit,  formState: { errors }, setValue } = useForm<FormCategoryState>();
   const history = useNavigate();
   const { categoryId } = useParams<ParamsType>();
 
   const isEditing = categoryId !== 'create';
-  const formTitle = isEditing ? 'EDITAR UMA CATEGORIA' : 'CADASTRAR UMA CATEGORIA';
+  const formTitle = isEditing ? 'EDITAR CATEGORIA' : 'REGISTRAR NUEVA CATEGORIA';
 
   useEffect(() => {
     if (isEditing) {
@@ -39,11 +39,11 @@ const FormCategory = () => {
       data
     })
       .then(() => {
-        toast.info('Categoria salva com sucesso!')
+        toast.info('categoria guardada con exito!')
         history('/admin/products');
       })
       .catch(() => {
-        toast.error('Erro ao salvar Categoria!')
+        toast.error('Error al guardar categoria!')
       })
   }
 
@@ -54,17 +54,16 @@ const FormCategory = () => {
       >
         <div className="margin-bottom-30">
           <input
-           /* ref={register(
+           {...register("name",
               {
-                required: "Campo obrigatório",
-                minLength: { value: 5, message: 'O campo deve ter no mínimo 5 caracteres' },
-                maxLength: { value: 60, message: 'O campo deve ter no máximo 60 caracteres' }
+                required: "Campo obrigatorio",
+                minLength: { value: 3, message: 'El campo debe tener minimo 3 caracteres' },
+                maxLength: { value: 60, message: 'El campo debe tener minimo 3 caracteres' }
               }
-            )}*/
-            name="name"
+            )}
             type="text"
             className="form-control input-base"
-            placeholder="Nome da Categoria"
+            placeholder="Nuevo Nombre de la categoria"
           />
           {errors.name && (
             <div className="invalid-feedback d-block">

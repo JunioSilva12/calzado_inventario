@@ -50,7 +50,7 @@ const DefaultFilters = ({
           className="filter-select-container"
           onChange={value => handleChangeDirection(value?.value as string,
             value?.label as string)}
-          placeholder="email"
+          placeholder="ordenar por"
           value={optionValue !== -1 ? options[optionValue] : null}
         />
 

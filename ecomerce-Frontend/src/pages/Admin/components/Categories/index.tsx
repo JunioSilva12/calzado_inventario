@@ -5,17 +5,16 @@ import ListCategory from './ListCategory';
 
 
 const Categories = () => {
+  console.log("categorias renderizando 1");
   return (
 
     <div>
       <Routes>
-      <Route path="/admin/categories" >
-          <ListCategory />
-        </Route>
+      <Route path="/" element={ <ListCategory />} />
+          
 
-        <Route path="/admin/categories/:categoryId">
-          <FormCategory/>
-        </Route>
+        <Route path=":categoryId"  element={<FormCategory/>} />
+         
 
       </Routes>
     </div>

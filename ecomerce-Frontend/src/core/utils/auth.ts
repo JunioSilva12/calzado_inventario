@@ -68,8 +68,8 @@ export const isAuthenticated = () => {
   const sessionData = getSessionData() ?? JSON.parse(localStorage.getItem('authData')  ?? '{}');
 
   if(!sessionData.data){return false}
-    console.log("...b",sessionData);
- console.log("...c",isTokenValid());
+    //console.log("...b",sessionData);
+ //console.log("...c",isTokenValid());
  return (sessionData.data.token && isTokenValid()) ?
   true : false
 }
@@ -80,8 +80,8 @@ export const isAllowedByRole = (routesRoles: Role[] = []) => {
   }
  console.log("hay rol: ", routesRoles)
   const { role } = getAccessTokenDecoded();
-  console.log("...d",role)
-  console.log("e..",routesRoles?.includes(role))
+  //console.log("...d",role)
+ // console.log("e..",routesRoles?.includes(role))
   return routesRoles?.includes(role);
 
 }

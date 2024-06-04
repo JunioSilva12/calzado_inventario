@@ -11,8 +11,8 @@ const getCategories = async (req, res)  => {
         const categories = await categoryModel.findAll();
    //     console.log(categories)
        const  categoryResponse ={
-            content: categories
-           // totalPages: (products.length % 10 == 0)  ?  Math.floor(products.length/20)  :   Math.floor(products.length / 20) +1
+            content: categories,
+             totalPages: (categories.length % 10 == 0)  ?  Math.floor(categories.length/20)  :   Math.floor(categories.length / 20) +1
             
           }
           res.json(categoryResponse);

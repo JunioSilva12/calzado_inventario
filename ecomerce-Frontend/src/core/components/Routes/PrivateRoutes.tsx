@@ -17,7 +17,7 @@ console.log("...a",isAllowedByRole(allowedRoutes), isAuthenticated());
   if ( !isAuthenticated()  ){ return( <Navigate to="/auth/login" replace /> ) ;
     
 }if (!isAllowedByRole(allowedRoutes) )  {
-  console.log("isRol....",isAllowedByRole(allowedRoutes))
+ // console.log("isRol....",isAllowedByRole(allowedRoutes))
     return ( <Navigate to="/home" replace /> )
   } else {
     return <Outlet />

@@ -9,11 +9,12 @@ import CardLoader from "../../Products/Loaders/ProductCardLoader";
 import CardCategory from "../CardCategory";
 
 const ListCategory = () => {
+  console.log("categorias renderizando 2");
   const [categoryResponse, setCategoryResponse] = useState<CategoryResponse>();
   const [isLoading, setIsLoading] = useState(false);
   const [activePage, setActivePage] = useState(0);
   const history = useNavigate();
-
+console.log("resultado",categoryResponse);
   const [name, setName] = useState('');
   const [direction, setDirection] = useState('DESC');
   const [optionValue, setOptionValue] = useState(-1); 
@@ -39,7 +40,7 @@ const ListCategory = () => {
   }
 
   const onRemove = (categoryId: number) => {
-    const confirm = window.confirm('Deseja realmente excluir este produto?');
+    const confirm = window.confirm('Desea realmente excluir este produto?');
 
     if (confirm) {
       makePrivateRequest({ url: `/categories/${categoryId}`, method: 'DELETE' })
@@ -63,7 +64,7 @@ const ListCategory = () => {
       orderBy: 'id'
     }
     setIsLoading(true);
-    makeRequest({ url: '/categories', params })
+    makeRequest({ url: '/category', params })
       .then((response: { data: SetStateAction<CategoryResponse | undefined>; }) => setCategoryResponse(response.data))
       .finally(() => {
         setIsLoading(false);
