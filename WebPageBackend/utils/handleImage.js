@@ -9,10 +9,12 @@ const { createCanvas , loadImage} = require('canvas');
 const path = require('path');
 
 const moverArchivo = (imagePath ,nameFile) => {
-  const pathTosend = `C:\\Users\\JUNIOR SILVA\\OneDrive\\Desktop\\proyecto1.1\\semestre9\\INGENIERIA DE SOFTWARE\\WebPageproyect\\new\\webpageproyect\\src\\core\\assets\\images\\`  
+  console.log("url de la imagen...",imagePath);
+  const pathTosend = `C:\\Users\\JUNIOR SILVA\\OneDrive\\Desktop\\proyecto1.1\\semestre9\\INGENIERIA DE SOFTWARE\\WebPageproyect\\ecomerce-Frontend\\src\\core\\assets\\images\\`  
 
     try {
         fs.renameSync(imagePath, path.join(pathTosend, nameFile));
+
         console.log(`Archivo movido de '${imagePath}' a '${pathTosend}' correctamente.`);
     } catch (error) {
         console.error(`Error al mover el archivo: ${error.message}`);

@@ -34,7 +34,7 @@ const FormCategory = () => {
 
   const onSubmit = (data: FormCategoryState) => {
     makePrivateRequest({
-      url: isEditing ? `/categories/${categoryId}` : '/categories',
+      url: isEditing ? `/category/${categoryId}` : '/category',
       method: isEditing ? 'PUT' : 'POST',
       data
     })

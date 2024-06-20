@@ -1,7 +1,8 @@
 const { Router } = require('express')
 const {getUserByID, createUser, updateUser, getUsers , delateUser} = require('../controllers/user')
 //const { validatorUser } = require('../validators/user')
-
+const authMiddleware = require('../middlewares/session')
+const checkRol = require('../middlewares/rol')
 
 const router = Router()
 
@@ -12,9 +13,16 @@ router.get(
  //  [ checkRol('admin', 'user'),validatorGetProducts],
    getUserByID
 )
+
+router.put(
+  '/:id',
+  [authMiddleware, checkRol('ROLE_ADMIN')],
+  updateUser
+)
+
 router.post(
     '/',
-   // [authMiddleware, checkRol('admin'), validatorCreateProducts],
+    [authMiddleware, checkRol('ROLE_ADMIN')],
     createUser
 )
 

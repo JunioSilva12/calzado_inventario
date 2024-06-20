@@ -10,22 +10,22 @@ const router = Router()
 router.get('/', getCategories)
 router.get(
     '/:id',
-   [ checkRol('admin', 'user')],
+   /*[ checkRol('ROLE_ADMIN', 'user')],*/
    getCategoriesByID
 )
 router.post(
     '/',
-    [authMiddleware, checkRol('admin')],
+    [authMiddleware, checkRol('ROLE_ADMIN')],
     createCategory
 )
 router.put(
     '/:id',
-    [authMiddleware, checkRol('admin')],
+    [authMiddleware, checkRol('ROLE_ADMIN')],
     updateCategory
 )
 router.delete(
     '/:id',
-    [authMiddleware,  checkRol('admin')],
+    [authMiddleware,  checkRol('ROLE_ADMIN')],
     delateCategory
 )
 

@@ -111,19 +111,26 @@ const getProductByID = async (req, res) => {
       price: product.price,
       imgUrl: product.imgUrl,
     });
-
-
-    product.categories.map(async (cat) => 
-        {       
-             const category = await categoryModel.findOne({ where: { name: cat.id } });
+    console.log("..........",ProductResponse)
+    console.log("..........",product.categories[0].id)
+    try {
+      const category = await categoryModel.findOne({ where: { id: product.categories[0].id } });
+             console.log("id-cat:",category)
              if (category) {
-                await productXcategoryModel.create({productId :ProductResponse.id  , categoryId:Category.id });
+                await productXcategoryModel.create({productId :ProductResponse.dataValues.id  , categoryId:category.dataValues.id });
                 console.log('Producto asociado a la categoría ');
               } else {
                 console.log('La categoría no existe.');
               }
-        }
-    )
+     } catch (error) {
+      console.log("cat-err",error)
+     }    
+    ProductResponse
+
+            
+             
+        
+    
 
     res.json(ProductResponse);
   } catch (error) {
@@ -147,6 +154,20 @@ const updateProduct = async (req, res) => {
             return res.status(404).json({ mensaje: 'Producto no encontrado' });
         }else{
         await productModel.update({ name:productNew.name , price:productNew.price }, { where: { id } })
+        console.log("..........",product)
+        console.log("..........",productNew.categories[0].id)
+     try {
+      const category = await categoryModel.findOne({ where: { id: productNew.categories[0].id } });
+             console.log("id-cat:",category)
+             if (category) {
+                await productXcategoryModel.create({productId :product.dataValues.id  , categoryId:category.dataValues.id });
+                console.log('Producto asociado a la categoría ');
+              } else {
+                console.log('La categoría no existe.');
+              }
+     } catch (error) {
+      console.log("cat-err",error)
+     }      
         return res.send({ productNew })
         }
     } catch (error) {

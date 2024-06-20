@@ -15,7 +15,7 @@ router.get(
 )
 router.post(
     '/',
-    [authMiddleware, checkRol('ROLE_ADMIN'), validatorCreateProducts],
+    [authMiddleware, checkRol('ROLE_ADMIN')],
     crearProducto
 )
 
@@ -23,7 +23,7 @@ router.post(
 
 router.post(
     '/image',
-    [authMiddleware, checkRol('ROLE_ADMIN')],
+   /* [authMiddleware, checkRol('ROLE_ADMIN')],*/
     uploadImage.fields([{ name: 'file', maxCount: 1 }]),
     loadFileImage
 )
@@ -31,7 +31,7 @@ router.post(
 
 router.put(
     '/:id',
-    [authMiddleware, checkRol('ROLE_ADMIN'),  validatorCreateProducts],
+    [authMiddleware, checkRol('ROLE_ADMIN')],
     updateProduct
 )
 router.delete( 

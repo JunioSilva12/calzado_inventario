@@ -112,7 +112,7 @@ const  getUserByID = async (req, res) => {
 const updateUser = async (req, res) => {
     try {
         const { id } = req.params;
-        const { nombre, correo, contraseña, rol } = req.body;
+        const { firstName, lastName, correo, contraseña, rol } = req.body;
 
         // Buscar el usuario por ID
         let usuario = await usersModel.findByPk(id);
@@ -122,7 +122,8 @@ const updateUser = async (req, res) => {
         }
 
         // Actualizar los datos del usuario
-        usuario.nombre = nombre;
+        usuario.firstName = firstName;
+        usuario.lastName = lastName;
         usuario.correo = correo;
         usuario.contraseña = contraseña;
         usuario.rol = rol;

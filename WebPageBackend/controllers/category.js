@@ -27,11 +27,11 @@ const getCategoriesByID = async (req, res) => {
     try {
         const category = await categoryModel.findByPk(id);
         if (!category) {
-            return res.status(404).json({ message: 'Producto no encontrado' });
+            return res.status(404).json({ message: 'categoria no encontrado' });
         }
         res.json(category);
     } catch (error) {
-        res.status(500).json({ message: 'Error al obtener el producto' });
+        res.status(500).json({ message: 'Error obtene categoria' });
     }
 };
 
@@ -39,11 +39,11 @@ const getCategoriesByID = async (req, res) => {
  const createCategory = async (req, res) => {
     
     try {
-        const {  ...rest } = matchedData(req)
-        const category = await categoryModel.create({  ...rest });
+        
+        const category = await categoryModel.create(req.body);
         res.json(category);
     } catch (error) {
-        res.status(500).json({ message: 'Error al crear el producto' });
+        res.status(500).json({ message: 'Error al crear categoria' });
     }
 }
 

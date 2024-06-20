@@ -23,7 +23,8 @@ const loadFileImage =async (req, res) => {
     },
     filename: function (req, file, callback) {
         const ext = file.originalname.split('.').pop()
-        const filename = `file-${Date.now()}.${ext}`
+       // const filename = `file-${Date.now()}.${ext}`
+       const filename=file.originalname;
         callback(null, filename)
     }
 })

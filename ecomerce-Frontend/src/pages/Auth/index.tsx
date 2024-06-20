@@ -37,9 +37,9 @@ const Auth = () =>{
       </h1>
       <p className="auth-info-subtitle mr-5" >
       
-         registrate para comprar el producto que quieras          
+         registrate para gestionar productos  ------------------                           
       </p>
-       <img src={AuthImage}/> 
+       <img width="400px" src={AuthImage}/> 
     </div>
     <div className="auth-content">
       
