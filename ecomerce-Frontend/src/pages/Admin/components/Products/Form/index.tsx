@@ -7,46 +7,58 @@ import './styles.scss';
 import {  useParams , useNavigate } from 'react-router-dom';
 import { SetStateAction, useEffect } from 'react';
 import { useState } from 'react';
-import { Category } from '../../../../../core/types/Product';
-import PriceField from './priceField';
+import { Category, Inventory } from '../../../../../core/types/Product';
+//import PriceField from './priceField';
 import ImageUpload from '../ImageUpload';
 import StateManagedSelect from 'react-select';
+import { Provider } from '../../../../../core/types/Provider';
+import { Size } from '../../../../../core/types/size';
 //import { TextField, Checkbox } from "@material-ui/core"
 export type FormState = {
   name: string;
-  price: string;
   imgUrl: string;
-  description: string;
   categories: Category[];
+  provider:Provider;
+  sizes:Size[];
+  inventories:Inventory[]
 }
-/*
-type ParamsType = {
-  productId: string;
-}*/
+
 
 const Form = () => {
   //register, 
-  const { register ,handleSubmit,  formState: { errors }, setValue, control } = useForm<FormState>();
+  const { register ,handleSubmit, watch, formState: { errors }, setValue, control } = useForm<FormState>();
   const history = useNavigate();
   const { productId } = useParams();
   console.log("tipo de formulario >>",productId)
   const [isLoadingCategories, setIsLoadingCategories] = useState(false);
+  const [isLoadingProviders, setIsLoadingProviders] = useState(false);
+  const [isLoadingSizes, setIsLoadingSizes] = useState(false);
   const [categories, setCategories] = useState<Category[]>([]);
+  const [providers, setProviders] = useState<Provider[]>([]);
+  const [sizes, setSizes] = useState<Size[]>([]);
   const [uploadedImgUrl, setUploadedImgUrl] = useState(''); 
   const [productImgUrl, setProductImgUrl] = useState(''); 
-  
+ // const [updatedInventories, setUpdatedInventories] = useState<Inventory[]>([]);
   const isEditing = productId !== 'create';
-  const formTitle = isEditing ? 'EDITAR UN PRODUCTO' : 'REGISTRAR UN PRODUCTO';
+  const formTitle = isEditing ? 'EDITAR CALZADO' : 'REGISTRAR CALZADO';
+
+
+  const selectedSizes = watch('sizes');
+  //const selectedSizesStock = watch('sizes');
+  //console.log(selectedSizes);
+
+
+
 
   useEffect(() => {
     if (isEditing) {
       makeRequest({ url: `/product/${productId}` })
-        .then((response: { data: { name: string ; price: string; imgUrl: SetStateAction<string>; description: string; categories: Category[]; }; }) => {
+        .then((response: { data: { name: string ; price: string; imgUrl: SetStateAction<string>; provider: Provider; categories: Category[]; }; }) => {
           setValue('name', response.data.name);
-          setValue('price', response.data.price);
+          
         
           setProductImgUrl(response.data.imgUrl);
-          setValue('description', response.data.description);
+         
           setValue('categories', response.data.categories);
 
         })
@@ -55,13 +67,45 @@ const Form = () => {
   }, [productId, isEditing, setValue]);
 
   useEffect(() => {
+
     setIsLoadingCategories(true);
+    setIsLoadingProviders(true);
+    setIsLoadingSizes(true);
+
     makeRequest({ url: '/category' })
       .then((response: { data: { content: SetStateAction<Category[]>; }; }) => setCategories(response.data.content))
       .finally(() => setIsLoadingCategories(false));
-  }, [])
+ 
+     makeRequest({ url: '/provider' })
+      .then((response: { data: { content: SetStateAction<Provider[]>; }; }) => setProviders(response.data.content))
+      .finally(() => setIsLoadingProviders(false));
+
+
+      makeRequest({ url: '/size' })
+      .then((response: { data: { content: SetStateAction<Size[]>; }; }) => setSizes(response.data.content))
+      .finally(() => setIsLoadingSizes(false));
+
+ 
+    }, [])
 
   const onSubmit = (data: FormState) => {
+    
+ //   console.log('datos/size: ',data)
+    const newInv:Inventory[] = [];
+data.inventories.forEach((inv, indice) => {
+if (inv) {
+  inv.size=indice;
+  console.log(inv,'..',indice)
+  newInv.push(inv);
+}
+
+   } 
+
+ 
+   )
+
+   data.inventories=newInv;
+
     const payload ={
       ...data,
       imgUrl: uploadedImgUrl || productImgUrl
@@ -84,6 +128,9 @@ const Form = () => {
   const onUploadSuccess = (imgUrl: string) =>{
     setUploadedImgUrl(imgUrl);
   }
+
+  
+
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} >
@@ -141,13 +188,33 @@ const Form = () => {
             </div>
 
             <div className="margin-bottom-30">
-              <PriceField control={control}/>
-              {errors.price && (
+              <Controller
+               
+                
+              
+                  name="provider"
+                  control={control}
+                  render={({ field }) => <StateManagedSelect  {...field} 
+                  options={providers}
+                  isLoading={isLoadingProviders}
+                  getOptionLabel={(option: Provider) => option.name}
+                  getOptionValue={(option: Provider) => String(option.idProvider)}
+                  classNamePrefix="categories-select"
+                  placeholder="proveedor..."
+                  
+                  />
+            }
+               
+              rules={{ required: 'Campo obrigatório' }}
+              
+              />
+              {errors.categories && (
                 <div className="invalid-feedback d-block">
-                  {errors.price.message}
+                  Campo obligatorio!
                 </div>
               )}
             </div>
+
 
             <div className="margin-bottom-30">
               <ImageUpload 
@@ -157,22 +224,78 @@ const Form = () => {
             </div>
           </div>
 
-          <div className="col-6">
-            <textarea
-             {...register( "description" ,{ required: "Campo obligatório" })}
+          <div className="mx-4 col-6">
+          <div className="margin-bottom-30">
+              <Controller
+               
+                
+                  defaultValue={[]}
+                  name="sizes"
+                  control={control}
+                  render={({ field }) => <StateManagedSelect  {...field} 
+                  options={sizes}
+                  isLoading={isLoadingSizes}
+                  getOptionLabel={(option: Size) => option.size}
+                  getOptionValue={(option: Size) => String(option.size)}
+                  classNamePrefix="categories-select"
+                  placeholder="tallas..."
+                  isMulti
+                 
+                 
+            
+                  />
+            }
+               
+              rules={{ required: 'Campo obrigatório' }}
               
-              className="form-control input-base"
-              placeholder="Descripcion"
-              id=""
-              cols={30}
-              rows={10}
-            />
-            {errors.description && (
-              <div className="invalid-feedback d-block">
-                {errors.description.message}
-              </div>
-            )}
+              />
+              {errors.categories && (
+                <div className="invalid-feedback d-block">
+                  Campo obligatorio!
+                </div>
+              )}
+
+            
+            </div> 
+            <div className="margin-bottom-30">
+            {(selectedSizes?.length > 0 )? (
+               
+              <div>
+                 <p>TALLAS:</p>  
+              
+                  { selectedSizes.map(size => (
+                    
+            <span key={size.id} className="badge  bg-primary m-2">
+             {size.size}
+             <input
+           
+            type="number"
+            className="cant-input form-control "
+          defaultValue={1}
+            min="1"
+            placeholder="Stock"
+         
+            {...register(`inventories.${size.id}.stock`, { required: 'Campo obligatorio', min: { value: 1, message: 'El valor mínimo es 1' } })}
+          />
+              
+           {errors.inventories && <span>{errors.inventories.message}</span>}
+             
+            </span> ))}
+       
+          
+          
           </div>
+        ):(
+          <p>No hay tallas Registradas</p>
+        )}
+           
+
+          </div>  
+                  
+          </div>
+          
+
+
         </div>
       </BaseForm>
     </form>

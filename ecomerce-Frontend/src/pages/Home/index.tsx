@@ -13,22 +13,19 @@ const Home = () =>(
 
     <div className="home-text">
       <h1 className="text-title">
-        Catálogo de Colchones
+        Catálogo de Calzado
       </h1>
 
-      <p className="text-subtitle">
-        Colchones disponible en tienda
-      </p>
       
       <Link to="/products" className="startSearchBtn">
-        {<ButtonIcon text=" Inicie su busqueda de colchones " />}
+        {<ButtonIcon text=" Inicie su busqueda de Calzado " />}
       </Link>
 
     </div>
 
     <div className="col-6">
     <Slider data={[]}></Slider>
-     { /*<img src={MainImage} className="main-image" />*/}
+   
 
 
     </div>

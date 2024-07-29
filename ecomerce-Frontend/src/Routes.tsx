@@ -21,7 +21,7 @@ const AppRoutes = () => (
       <Route path="/products" element={<Catalog />} />
      <Route path="/products/:productId" element={<ProductDetails />} />
     {/*}  <Route path="/auth" element={<Auth />} />*/}
-    <Route path="/" element={<PrivateRoutes allowedRoutes={['ROLE_ADMIN'] }/>}>
+    <Route path="/" element={<PrivateRoutes />}>
          <Route path="/admin/*" element={<Admin/>} />
     </Route>
     
@@ -35,7 +35,7 @@ const AppRoutes = () => (
       
       {/* Redirecciones */}
       <Route path="/auth" element={<Navigate to="/auth/login" />} />
-     {<Route path="/admin" element={<Navigate to="/admin/users" />} />   }
+     {<Route path="/admin" element={<Navigate to="/admin/products" />} />   }
     </Routes>
   </Router>
 );

@@ -31,7 +31,7 @@ const getCategoriesByID = async (req, res) => {
         }
         res.json(category);
     } catch (error) {
-        res.status(500).json({ message: 'Error obtene categoria' });
+        res.status(500).json({ message: 'Error al obtener categoria' });
     }
 };
 
@@ -71,15 +71,16 @@ const delateCategory =  async (req, res) => {
    
     try {
         
-        const { id , ...res} = matchedData(req)
-        const product = await categoryModel.findByPk(req.params.id);
-        if (!product) {
-            return res.status(404).json(JSON.stringify({ message: 'Producto no encontrado' }));
+    
+       // console.log('...cat..',req.params.id)
+        const cat = await categoryModel.findByPk(req.params.id);
+        if (!cat) {
+            return res.status(404).json(JSON.stringify({ message: 'categoria no encontrada' }));
         }
-        await product.destroy();
-        res.json(JSON.stringify({ message: 'Producto eliminado correctamente' }));
+        await cat.destroy();
+        res.json(JSON.stringify({ message: 'categoria eliminado correctamente' }));
     } catch (error) {
-        res.status(500).json({ message: 'Error al eliminar el producto' });
+        res.status(500).json({ message: 'Error al eliminar categoria' });
     }
 
 }

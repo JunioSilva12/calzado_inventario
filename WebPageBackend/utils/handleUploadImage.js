@@ -18,7 +18,7 @@ const loadFileImage =async (req, res) => {
 
   const storage = multer.diskStorage({
     destination: function (req, file, callback) {
-        const pathStorage = `../storage/Product_image`
+        const pathStorage = `../ecomerce-Frontend/src/core/assets/images/`
         callback(null, pathStorage)
     },
     filename: function (req, file, callback) {

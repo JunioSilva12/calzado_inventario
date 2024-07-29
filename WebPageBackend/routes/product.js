@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const { crearProducto, getProductByID, getProducts, updateProduct ,delateProduct } = require('../controllers/product');
-const { validatorGetProducts, validatorCreateProducts} = require('../validators/products');
+//const { validatorGetProducts, validatorCreateProducts} = require('../validators/products');
 const authMiddleware = require('../middlewares/session')
 const checkRol = require('../middlewares/rol')
 const {loadFileImage , uploadImage} =  require('../utils/handleUploadImage');
@@ -15,7 +15,7 @@ router.get(
 )
 router.post(
     '/',
-    [authMiddleware, checkRol('ROLE_ADMIN')],
+    [authMiddleware],
     crearProducto
 )
 
@@ -23,7 +23,7 @@ router.post(
 
 router.post(
     '/image',
-   /* [authMiddleware, checkRol('ROLE_ADMIN')],*/
+    [authMiddleware],
     uploadImage.fields([{ name: 'file', maxCount: 1 }]),
     loadFileImage
 )
@@ -31,12 +31,12 @@ router.post(
 
 router.put(
     '/:id',
-    [authMiddleware, checkRol('ROLE_ADMIN')],
+    [authMiddleware],
     updateProduct
 )
 router.delete( 
     '/:id',
-    [authMiddleware,  checkRol('ROLE_ADMIN'),  validatorGetProducts],
+    [authMiddleware],
     delateProduct
 )
 

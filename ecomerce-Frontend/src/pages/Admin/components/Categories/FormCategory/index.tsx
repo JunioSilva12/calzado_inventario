@@ -40,7 +40,7 @@ const FormCategory = () => {
     })
       .then(() => {
         toast.info('categoria guardada con exito!')
-        history('/admin/products');
+        history('/admin/categories');
       })
       .catch(() => {
         toast.error('Error al guardar categoria!')

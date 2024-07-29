@@ -1,5 +1,5 @@
 import './styles.scss';
-import  AuthImage  from '../../core/assets/images/auth.svg';
+// import  AuthImage  from '../../core/assets/images/auth.svg';
 //import { Route, Routes } from 'react-router-dom';
 import Login from './components/Login';
 //import { Route  } from 'react-router-dom';
@@ -29,21 +29,10 @@ const Auth = () =>{
   //const componentToRender = true ? <Login /> : <Card />;
   const componentToRender =  <Login /> 
   return (<div className="auth-container">
-    <div className="auth-info">
-      <h1 className="auth-info-title">
-       productos y <br /> colchones<br />
-        en el catálogo  
-       
-      </h1>
-      <p className="auth-info-subtitle mr-5" >
-      
-         registrate para gestionar productos  ------------------                           
-      </p>
-       <img width="400px" src={AuthImage}/> 
-    </div>
+
     <div className="auth-content">
       
-      {/*aqui falta las rutas para la recuperacion y el registro */}
+      
       
       {componentToRender}
  

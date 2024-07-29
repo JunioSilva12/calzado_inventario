@@ -43,13 +43,13 @@ console.log("resultado",categoryResponse);
     const confirm = window.confirm('Desea realmente excluir este produto?');
 
     if (confirm) {
-      makePrivateRequest({ url: `/categories/${categoryId}`, method: 'DELETE' })
+      makePrivateRequest({ url: `/category/${categoryId}`, method: 'DELETE' })
         .then(() => {
           getCategories();
-          toast.info('Produto removido com sucesso!')
+          toast.info('Categoria eliminada correctamente')
         })
         .catch(() => {
-          toast.error('Erro ao remover o produto!')
+          toast.error('Error al remover categoria!')
         })
     }
 

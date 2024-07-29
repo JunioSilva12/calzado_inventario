@@ -6,14 +6,12 @@ const pathModels = '.'
 
 const models = {
     usersModel: require(`${pathModels}/users`),
-    //storagesModel: require(`${pathModels}/storage`),
-    customerModel: require(`${pathModels}/customer`),
-    proveedorModel: require(`${pathModels}/proveedor`),
-    orderModel: require(`${pathModels}/orders`),
+    providerModel: require(`${pathModels}/provider`),
     productModel: require(`${pathModels}/products`),
-    orderDetailsModel: require(`${pathModels}/orderDetails`),
     categoryModel: require(`${pathModels}/category`),
     productXcategoryModel: require(`${pathModels}/productXcategory`),
+    sizesModel: require(`${pathModels}/sizes`),
+    InventoryModel: require(`${pathModels}/inventory`),
 }
 
 

@@ -47,11 +47,13 @@ const List = () => {
       .then((response: { data: SetStateAction<ProductResponse | undefined>; }) => setProductResponse(response.data))
       .finally(() => {
         setIsLoading(false);
+      
       })
   }, [activePage, name, category]);
 
   useEffect(() => {
     getProducts();
+  
   }, [getProducts]);
 
 
@@ -92,10 +94,15 @@ const List = () => {
         />
       </div>
       <div className="admin-list-container">
-        {isLoading ? <CardLoader /> : (
-          productResponse?.content.map(product => (
-            <Card product={product} key={product.id} onRemove={onRemove} />
-          ))
+        {isLoading ? <CardLoader /> : 
+        (
+          productResponse && productResponse.content ? (
+            productResponse.content.map(product => (
+              <Card key={product.id} product={product} onRemove={onRemove} />
+            ))
+          ) : (
+            <div>No products available</div>
+          )
         )}
 
         {productResponse &&

@@ -1,3 +1,5 @@
+
+
 export type ProductResponse ={
   content: Product[];
   totalPages: number;
@@ -7,13 +9,20 @@ export type ProductResponse ={
 export type Product ={
   id:number;
   name: string;
-  description: string;
-  price: number;
   imgUrl: string;
   categories: Category[];
+  inventories:Inventory[]
+  idProvider: number;
 }
 
 export type Category = {
   id: number;
   name: string;
 }
+
+export type Inventory = {
+  size: number;
+  stock:number
+}
+
+

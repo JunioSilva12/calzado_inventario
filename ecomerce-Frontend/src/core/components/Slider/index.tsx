@@ -5,19 +5,19 @@ import React, {  useEffect, useRef, useState } from 'react'
 
 const data = [
   {
-    id: 1, imgUrl: 'colchon-chaide-y-chaide-continental-de-lujo-15-plazas.jpg'
+    id: 1, imgUrl: 'PRUEBA.jpeg'
   },
   {
-    id: 2, imgUrl: 'COLCHON SIMMONS BACK CARE KING.jpg'
+    id: 2, imgUrl: 'PRUEBA.jpeg'
   },
   {
-    id: 3, imgUrl: '02-colchones-colchon-latex-natural.jpg'
+    id: 3, imgUrl: 'PRUEBA.jpeg'
   },
   {
-    id: 4, imgUrl: 'colchon1.PNG'
+    id: 4, imgUrl: 'PRUEBA.jpeg'
   },
   {
-    id: 5, imgUrl: 'colchon_acces_resortado.png'
+    id: 5, imgUrl: 'PRUEBA.jpeg'
   }
 ];
 

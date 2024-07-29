@@ -1,20 +1,25 @@
 const { sequelize } = require("../config/mysql");
 const { DataTypes } = require('sequelize')
 
-const Provider = sequelize.define('provider', {
-    idProvider: {
+const Sizes = sequelize.define('Sizes', {
+    id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      autoIncrement: true
+    
     },
-    name: {
+    size: {
       type: DataTypes.STRING(30),
       allowNull: false
     }
   }, {
     // Otras opciones del modelo
     timestamps: true,
-    tableName: 'provider' // Nombre de la tabla en la base de datos
+    tableName: 'Sizes' // Nombre de la tabla en la base de datos
   });
 
-  module.exports = Provider
+
+ 
+
+  module.exports = Sizes
+
+  //Insert into category(id,nombre,createdAt,updatedAt ) values(12,"colchon",CURRENT_TIMESTAMP,CURRENT_TIMESTAMP)

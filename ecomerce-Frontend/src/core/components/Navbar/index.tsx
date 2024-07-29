@@ -23,7 +23,7 @@ const Navbar = () => {
 
   const handleLogout = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     event.preventDefault();
-    history('/home');
+    history('/auth/login');
     logout();
   }
   
@@ -31,7 +31,7 @@ const Navbar = () => {
     <nav className="bg-primary main-nav">
 
       <Link to="/" className="nav-logo-text">
-        <h4>Tienda de colchones</h4>
+        <h4>TIENDA DE CALZADO</h4>
       </Link>
       <button
         className="menu-mobile-btn"

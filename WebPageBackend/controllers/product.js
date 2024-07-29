@@ -1,9 +1,8 @@
 const { matchedData } = require('express-validator');
-const { productModel } = require('../models');
+const { productModel,InventoryModel,categoryModel,productXcategoryModel } = require('../models');
 /*const { verifyAdminToken } = require('../utils/handleJwt');*/
 const { handleHttpError } = require('../utils/handleError');
-const { categoryModel } = require('../models/');
-const { productXcategoryModel } = require('../models/');
+
 
 /*
 const getProductxCategory = async (id) => {
@@ -54,29 +53,60 @@ const getProductxCategory = async (id) => {
 const getProducts = async (req, res)  => {
     try {
          products = await productModel.findAll( {
-            include: categoryModel, // Incluye las categorías relacionadas que pendejo soyyyyyyyyyyyyyyyyyyyyy
-          });
-       // console.log(".a.",products)
-      
-          const updatedProducts =  products.map(  (producto) => (
-            {
-            id : producto.id ,
-            name: producto.name,
-            description: producto.description,
-            price: producto.price,
-            imgUrl: producto.imgUrl,
-            updatedAt:producto.updatedAt,
-            createdAt:producto.createdAt,
-            categories: producto.categories.map(  (cat) => ({id :cat.id,name :cat.name }))
-        }));
+            include: [
+              {
+                model: categoryModel
 
-        //  console.log(".b.",updatedProducts)
-       const  ProductResponse ={
+              }
+             ] // Incluye las categorías relacionadas que pendejo soyyyyyyyyyyyyyyyyyyyyy
+          });
+
+         
+
+
+        console.log(".a.",products);
+
+        
+        const updatedProducts = await Promise.all(
+          products.map(async (product) => {
+            const inventories = await InventoryModel.findAll({
+              where: {
+                productId: product.id,
+              },
+            });
+    
+            return {
+              id: product.id,
+              name: product.name,
+              idProvider: product.idProvider,
+              inventories: inventories?.map((inv) => ({
+                size: inv.dataValues.SizeId,
+                stock: inv.dataValues.stock,
+              })),
+              imgUrl: product.imgUrl,
+              updatedAt: product.updatedAt,
+              createdAt: product.createdAt,
+              categories: product.categories.map((cat) => ({
+                id: cat.id,
+                name: cat.name,
+              })),
+            };
+          })
+        );
+          
+         
+            console.log(".productos.",updatedProducts)
+            const  ProductResponse ={
             content: updatedProducts,
             totalPages: (products.length % 10 == 0)  ?  Math.floor(products.length/20)  :   Math.floor(products.length / 20) +1
             
           }
            res.json(ProductResponse);
+         
+    
+   
+        
+       
     } catch (error) {
         res.status(500).json({ message: 'Error al obtener los productos' });
     }
@@ -107,14 +137,17 @@ const getProductByID = async (req, res) => {
 
        const ProductResponse = await productModel.create({
       name: product.name,
-      description: product.description,
+      idProvider: product.provider.idProvider,
       price: product.price,
       imgUrl: product.imgUrl,
     });
     console.log("..........",ProductResponse)
     console.log("..........",product.categories[0].id)
+
+    product.categories.forEach(async cat => {
+
     try {
-      const category = await categoryModel.findOne({ where: { id: product.categories[0].id } });
+      const category = await categoryModel.findOne({ where: { id: cat.id } });
              console.log("id-cat:",category)
              if (category) {
                 await productXcategoryModel.create({productId :ProductResponse.dataValues.id  , categoryId:category.dataValues.id });
@@ -124,8 +157,26 @@ const getProductByID = async (req, res) => {
               }
      } catch (error) {
       console.log("cat-err",error)
-     }    
-    ProductResponse
+     }  
+
+
+  });
+  product.inventories.forEach(async inv => {
+
+    try {
+      
+                await InventoryModel.create({productId :ProductResponse.dataValues.id  , SizeId:inv.size,  stock:inv.stock});
+                console.log('Producto asociado a la talla ');
+             
+     } catch (error) {
+      console.log("cat-err",error)
+     }  
+
+
+  });
+      
+    
+  
 
             
              

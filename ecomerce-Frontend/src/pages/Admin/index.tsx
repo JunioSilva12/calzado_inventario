@@ -7,7 +7,8 @@ import './styles.scss';
 import Users from './components/Users';
 import Products from './components/Products';
 import Categories from './components/Categories';
-
+import Sizes from './components/Sizes';
+import Provider from './components/Provider';
 
 const Admin = () =>(
   <div className="admin-container">
@@ -19,6 +20,8 @@ const Admin = () =>(
         <Route path="/products/*" element={<Products />} />
         <Route path="/categories/*" element={<Categories />} />
         <Route path="/users/*" element={<Users />} />
+        <Route path="/sizes/*" element={<Sizes />} />
+        <Route path="/providers/*" element={<Provider />} />
       
 
      

@@ -1,5 +1,5 @@
 import ButtonIcon from '../../../../core/components/ButtonIcon';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import  {useForm}  from 'react-hook-form';
 import AuthCard from '../Card';
 import './styles.scss';
@@ -37,7 +37,7 @@ const Login = () => {
       .then((response: { data: { access_token: string; token_type: string; expires_in: number; scope: string; name: string; userId: number; }; }) => {
         setHasError(false);
         saveSessionData(response.data);
-        history('/', { replace: true });
+        history('/admin', { replace: true });
       })
       .catch(() => {
         setHasError(true);
@@ -93,22 +93,14 @@ const Login = () => {
         </div>
 
 
-        <Link to="/auth/recover" className="login-link-recover">
-        ¿Olvidé la contraseña?
-        </Link>
+
 
         <div className="login-submit">
           <ButtonIcon text="login" />
         </div>
 
         <div className="text-center">
-          <span className="not-registered">
-          ¿No tienes registro?
-          </span>
-
-          <Link to="/auth/register" className="login-link-register">
-            REGISTAR
-          </Link>
+       
 
         </div>
 

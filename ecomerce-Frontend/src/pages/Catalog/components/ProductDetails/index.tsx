@@ -1,7 +1,7 @@
 import { SetStateAction, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import  ArrowIcon  from '../../../../core/assets/images/arrow.svg';
-import ProductPrice from '../../../../core/components/ProductPrice';
+//import ProductPrice from '../../../../core/components/ProductPrice';
 import { Product } from '../../../../core/types/Product';
 import { makeRequest } from '../../../../core/utils/request';
 import ProductInfoLoader from '../Loaders/ContentLoade';
@@ -52,7 +52,7 @@ const ProductDetails = () => {
                   {product?.name}
                 </h1>
 
-                {product?.price && <ProductPrice price={product?.price} />}
+                {/* {product?.price && <ProductPrice price={product?.price} />} */}
               </div>
             </div>
           )}
@@ -66,7 +66,7 @@ const ProductDetails = () => {
                 </h1>
 
                 <p className="product-description-text">
-                  {product?.description}
+                  {/*product?.description*/}
                 </p>
               </>
             )}

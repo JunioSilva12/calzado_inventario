@@ -20,7 +20,9 @@ const dbConnectMySQL = async () => {
         await sequelize.authenticate()
         console.log('> Conexión establecida con la base de datos MySQL');
 
-     // await sequelize.sync({ alter: true });//esto es para sincronizar las tablas
+//    await sequelize.sync({ alter: true });//esto es para sincronizar las tablas
+
+ 
        
         
     } catch (error) {

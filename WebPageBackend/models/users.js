@@ -26,11 +26,8 @@ const User = sequelize.define(
         },
         password: {
             type: DataTypes.STRING,
-        },
-        role: {
-            type: DataTypes.ENUM(['ROLE_OPERATOR', 'ROLE_ADMIN']),
-            defaultValue: 'ROLE_OPERATOR'
         }
+       
     },
     {
         timestamps: true ,

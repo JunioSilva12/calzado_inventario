@@ -1,6 +1,6 @@
 
 
-import ProductPrice from '../../../../core/components/ProductPrice';
+//import ProductPrice from '../../../../core/components/ProductPrice';
 import { Product } from '../../../../core/types/Product';
 //import ProductImage from '../../../../core/assets/images/product.svg'
 import './styles.scss';
@@ -49,7 +49,7 @@ const ProductCard = ({ product }: Props) =>(
         {product.name}
       </h6>
     </div>
-   <ProductPrice price={product.price}/>
+   {/* <ProductPrice price={product.price}/> */}
   </div>
 );
 

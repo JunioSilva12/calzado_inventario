@@ -13,7 +13,7 @@ const Category = sequelize.define('category', {
     }
   }, {
     // Otras opciones del modelo
-    timestamps: true,
+    timestamps: false,
     tableName: 'category' // Nombre de la tabla en la base de datos
   });
 

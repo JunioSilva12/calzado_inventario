@@ -18,7 +18,10 @@
   height: 100px;
   margin: 0px 10px;
 }
-
+.bg-dark{
+  background-color: rgba(0, 0, 0, 0.9);
+  color: aliceblue;
+}
 .buttons-container {
   width: 20%;
   display: flex;

@@ -16,7 +16,7 @@ router.get(
 
 router.put(
   '/:id',
-  [authMiddleware, checkRol('ROLE_ADMIN')],
+  [authMiddleware],
   updateUser
 )
 

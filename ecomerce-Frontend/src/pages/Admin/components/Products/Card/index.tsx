@@ -1,14 +1,18 @@
-import ProductPrice from '../../../../../core/components/ProductPrice';
+//import ProductPrice from '../../../../../core/components/ProductPrice';
 import { Product } from '../../../../../core/types/Product';
 import { Link } from 'react-router-dom';
 import './styles.scss';
+import ProductSizes from '../../../../../core/components/ProductSizes';
 
 type Props = {
   product: Product;
+  key:number;
   onRemove: (productId: number) => void;
 }
 
-const Card = ({ product, onRemove }: Props) => {
+const Card = ({ product, key, onRemove }: Props) => {
+  
+  console.log('::::',product.inventories);
   return (
     <div className="card-base product-card-admin">
       <div className="text-center border-right py-3 border-img">
@@ -23,10 +27,16 @@ const Card = ({ product, onRemove }: Props) => {
         <h3 className="product-card-name-admin">
           {product.name}
         </h3>
-        <ProductPrice price={product.price} />
+       
+        {(product.inventories)? (
+//          <p>SI hay tallas Registradas</p>
+           <ProductSizes sizes={product.inventories} key={key} /> 
+        ):(
+          <p>No hay tallas Registradas</p>
+        )}
         <div>
-          {product.categories.map(category => (
-            <span key={category.id} className="badge rounded-pill bg-secondary mr-2">
+          {product?.categories?.map(category => (
+            <span key={category.id} className="badge rounded-pill bg-dark mr-2">
               {category.name}
             </span>
           ))}
