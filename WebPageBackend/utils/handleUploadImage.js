@@ -1,6 +1,9 @@
 
 const { matchedData } = require('express-validator');
 const multer = require('multer');
+const { authorizeB2  } = require('../config/backBlaze');
+
+
 
 const {moverArchivo} = require('./handleImage');
 const loadFileImage =async (req, res) => {
@@ -31,4 +34,37 @@ const loadFileImage =async (req, res) => {
   
   const uploadImage = multer({ storage });
 
-  module.exports = { loadFileImage ,uploadImage }
+
+
+  const loadFileImage2 = async (req, res) => {
+    try {
+      // Autorizar B2
+      await authorizeB2();
+  
+      // Obtener el Upload URL y el Auth Token
+      const response = await b2.getUploadUrl({
+        bucketId: process.env.B2_BUCKET_ID,
+      });
+  
+      const { uploadUrl, authorizationToken } = response.data;
+  
+      // Subir el archivo a Backblaze B2
+      const fileUploadResponse = await b2.uploadFile({
+        uploadUrl: uploadUrl,
+        uploadAuthToken: authorizationToken,
+        fileName: req.file.originalname,
+        data: req.file.buffer,
+      });
+  
+      res.status(200).send({
+        fileUrl: `https://f000.backblazeb2.com/file/${process.env.B2_BUCKET_NAME}/${req.file.originalname}`,
+        data: fileUploadResponse.data,
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).send({ error: 'Error uploading file' });
+    }
+  }
+
+
+  module.exports = { loadFileImage ,uploadImage,loadFileImage2 }
