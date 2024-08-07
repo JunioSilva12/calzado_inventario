@@ -2,13 +2,13 @@ const { matchedData } = require('express-validator');
 const { providerModel } = require('../models');
 /*const { verifyAdminToken } = require('../utils/handleJwt');*/
 const { handleHttpError } = require('../utils/handleError');
-
+const {prisma} = require('../config/posgresql');
 
 
 // Ruta para obtener todos los productos
 const getProviders = async (req, res)  => {
     try {
-        const sizes = await providerModel.findAll();
+        const sizes = await prisma.provider.findMany();
    //     console.log(categories)
        const  sizeResponse ={
             content: sizes,
@@ -25,12 +25,13 @@ const getProviders = async (req, res)  => {
 const getProviderByID = async (req, res) => {
  
     try {
-        const prov = await providerModel.findByPk(req.params.id);
+        const prov = await prisma.provider.findUnique({ where:{ idProvider:parseInt(req.params.id , 10)} });
         if (!prov) {
             return res.status(404).json({ message: 'proveedor  no encontrado' });
         }
         res.json(prov);
     } catch (error) {
+        console.log(error)
         res.status(500).json({ message: 'Error al obtener proveedor' });
     }
 };
@@ -42,18 +43,22 @@ const updateProvider = async (req, res) => {
         const { id } = req.params;
         const { cod , name , ref} = req.body;
        
-         prov = await providerModel.findByPk(id);
+        const prov = await prisma.provider.findUnique({ where: {idProvider: parseInt(req.params.id , 10)}});
 
+         await prisma.provider.update({
+            where:{ idProvider:parseInt(req.params.id , 10)},
+            data: {
+              name,
+              ref,
+             // updatedAt: new Date(), // Actualiza el campo updatedAt manualmente
+            },
+          });
        
         if (!prov) {
             return res.status(404).json({ mensaje: 'proveedor no encontrado' });
         }else{
         
-         prov.ref = ref;
-         prov.idProvider = cod;
-         prov.name = name;
-
-          await  prov.save();
+       
         return res.json(prov);
         }
     } catch (error) {
@@ -73,16 +78,17 @@ const updateProvider = async (req, res) => {
          const prov =req.body 
 
           const newProv = {
-            idProvider: prov.cod,
+            idProvider:parseInt(prov.cod, 10) ,
             name:prov.name ,
             ref: prov.ref
     }
         
-        const size = await providerModel.create(newProv);
+        const resul = await prisma.provider.create({data:newProv});
       
-        res.json(size);
+        res.json(resul);
     } catch (error) {
         res.status(500).json({ message: 'Error al crear prooveedor' });
+        console.log(error);
     }
 }
 
@@ -93,12 +99,14 @@ const delateProvider =  async (req, res) => {
     try {
         
      
-        const size = await providerModel.findByPk(req.params.id);
+        const prov = await prisma.provider.findUnique({ where: { idProvider:parseInt(req.params.id , 10)}});
 
-        if (!size) {
+        if (!prov) {
             return res.status(404).json(JSON.stringify({ message: 'Proveedor  no encontrado' }));
         }
-        await size.destroy();
+        await    prisma.provider.delete({
+            where: { idProvider: prov.idProvider },
+          });
         res.json(JSON.stringify({ message: 'Proveedor eliminado correctamente' }));
     } catch (error) {
         res.status(500).json({ message: 'Error al eliminar proveedor' });

@@ -98,7 +98,7 @@ const ImageUpload = ({onUploadSuccess, productImgUrl}: Props) => {
         )}
         {(imgUrl && uploadProgress=== 0) && (
           <img
-            src={`/src/core/assets/images/${imgUrl}`}
+            src={`/public/product_images/${imgUrl}`}
             alt={imgUrl}
             className="uploaded-image"
           />

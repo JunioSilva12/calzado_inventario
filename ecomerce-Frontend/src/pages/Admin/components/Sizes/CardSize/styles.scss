@@ -7,7 +7,7 @@
   }
 
   .col-category {
-    width: 50%;
+    width: 30%;
   }
 }
 .card-item {
@@ -26,11 +26,11 @@
 .row-category-buttons {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  width: 100%;
+  justify-content:space-between ;
+  width: 80%;
   .category-button {
-    width: 180px;
-    margin-left: 27px;
+    width: 100px;
+    margin: 0;
   }
 }
 

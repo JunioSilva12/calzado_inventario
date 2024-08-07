@@ -3,7 +3,7 @@ const { usersModel } = require('../models');
 const { tokenSign } = require('../utils/handleJwt');
 const { handleHttpError } = require('../utils/handleError');
 const { encrypt } = require('../utils/handlePassword')
-
+const {prisma} = require('../config/posgresql');
 
 // Controlador para crear un nuevo usuario
 const createUser = async (req, res) => {

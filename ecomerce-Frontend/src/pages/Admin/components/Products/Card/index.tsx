@@ -1,8 +1,9 @@
 //import ProductPrice from '../../../../../core/components/ProductPrice';
 import { Product } from '../../../../../core/types/Product';
-import { Link } from 'react-router-dom';
+//import { Link } from 'react-router-dom';
 import './styles.scss';
 import ProductSizes from '../../../../../core/components/ProductSizes';
+import { Link } from 'react-router-dom';
 
 type Props = {
   product: Product;
@@ -12,12 +13,12 @@ type Props = {
 
 const Card = ({ product, key, onRemove }: Props) => {
   
-  console.log('::::',product.inventories);
+  //console.log('::::',product.inventories);
   return (
     <div className="card-base product-card-admin">
       <div className="text-center border-right py-3 border-img">
         <img
-          src={`/src/core/assets/images/${product.imgUrl}`}
+          src={`/public/product_images/${product.imgUrl}`}
           alt={product.name}
           className="product-card-image-admin"
         />
@@ -45,17 +46,17 @@ const Card = ({ product, key, onRemove }: Props) => {
       </div>
 
       <div className="buttons-container">
-        <Link
+       <Link
           to={`/admin/products/${product.id}`}
           type="button"
-          className="btn btn-outline-secondary btn-block border-radius-10 btn-product"
+          className="btn btn-outline-primary btn-block border-radius-10 btn-product"
         >
           EDITAR
-        </Link>
+        </Link> 
 
         <button
           type="button"
-          className="btn  btn-block border-radius-10 btn-product btn-outline-danger"
+          className="btn  btn-block border-radius-10 btn-product btn-outline-secondary"
          
           onClick={() => onRemove(product.id)}
         >

@@ -1,7 +1,6 @@
-
 import { Link } from "react-router-dom";
 import './styles.scss';
-import { Provider } from '../../../../../core/types/provider';
+import { Provider } from '../../../../../core/types/Provider'
 
 
 type Props = {

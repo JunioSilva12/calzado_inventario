@@ -2,20 +2,20 @@ const { matchedData } = require('express-validator');
 const { categoryModel } = require('../models');
 /*const { verifyAdminToken } = require('../utils/handleJwt');*/
 const { handleHttpError } = require('../utils/handleError');
-
+const {prisma} = require('../config/posgresql');
 
 
 // Ruta para obtener todos los productos
 const getCategories = async (req, res)  => {
     try {
-        const categories = await categoryModel.findAll();
+        const categories = await prisma.category.findMany();
    //     console.log(categories)
        const  categoryResponse ={
             content: categories,
              totalPages: (categories.length % 10 == 0)  ?  Math.floor(categories.length/20)  :   Math.floor(categories.length / 20) +1
             
           }
-          res.json(categoryResponse);
+           res.json(categoryResponse);
     } catch (error) {
         res.status(500).json({ message: 'Error al obtener las categorias' });
     }
@@ -25,7 +25,7 @@ const getCategories = async (req, res)  => {
 const getCategoriesByID = async (req, res) => {
     const { id } = matchedData(req)
     try {
-        const category = await categoryModel.findByPk(id);
+        const category = await prisma.category.findUnique({ where: {id: id}});
         if (!category) {
             return res.status(404).json({ message: 'categoria no encontrado' });
         }
@@ -40,7 +40,7 @@ const getCategoriesByID = async (req, res) => {
     
     try {
         
-        const category = await categoryModel.create(req.body);
+        const category = await prisma.category.create({data:req.body});
         res.json(category);
     } catch (error) {
         res.status(500).json({ message: 'Error al crear categoria' });
@@ -53,11 +53,15 @@ const updateCategory = async (req, res) => {
         
         const { id , ...res} = matchedData(req)
        
-        let category = await categoryModel.findByPk(id);
+        let category = await prisma.category.findUnique({ where: {id: id}});
         if (!category) {
             return res.status(404).json({ mensaje: 'Producto no encontrado' });
         }else{
-        await categoryModel.update(rest, { where: { id } })
+        await prisma.category.update( {where: { id: category.id  },
+            data: {
+                ...res,
+              updatedAt: new Date(), // Actualiza el campo updatedAt manualmente
+            }, })
         return res.send({ data })
         }
     } catch (error) {
@@ -73,14 +77,17 @@ const delateCategory =  async (req, res) => {
         
     
        // console.log('...cat..',req.params.id)
-        const cat = await categoryModel.findByPk(req.params.id);
+      const cat = await prisma.category.findUnique({ where: {id:  parseInt(req.params.id, 10)}});
         if (!cat) {
             return res.status(404).json(JSON.stringify({ message: 'categoria no encontrada' }));
         }
-        await cat.destroy();
+        await  prisma.category.delete({
+            where: { id: parseInt(cat.id, 10) },
+          });
         res.json(JSON.stringify({ message: 'categoria eliminado correctamente' }));
     } catch (error) {
         res.status(500).json({ message: 'Error al eliminar categoria' });
+        console.log(error)
     }
 
 }

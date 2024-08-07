@@ -33,7 +33,7 @@ export const saveSessionData = (loginResponse: LoginResponse) => {
 export const getSessionData = () => {
   try {const sessionData = localStorage.getItem('authData') ?? '{}';
   const parsedSessionData = JSON.parse(sessionData);
- //console.log(".l.",parsedSessionData.data.user)
+ console.log(".l.",parsedSessionData.data.user)
   return parsedSessionData as LoginResponse;
 }catch(err){
   console.log(err)
@@ -42,10 +42,10 @@ export const getSessionData = () => {
 
 export const getAccessTokenDecoded = () => {
   const sessionData = getSessionData() ?? JSON.parse(localStorage.getItem('authData')  ?? '{}');
- //console.log(".l.",sessionData)
+ console.log(".l.",sessionData)
   try {
     const tokenDecoded = jwtDecode(sessionData.data.token);
- //   console.log(tokenDecoded)
+    console.log(".lool.",tokenDecoded)
     return tokenDecoded as AccessToken;
   } catch (error){
     return {} as AccessToken;

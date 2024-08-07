@@ -1,6 +1,6 @@
 import DefaultFilters from "../../../../../core/components/DefaultFilter";
 import Pagination from "../../../../../core/components/Pagination";
-import { ProviderResponse } from "../../../../../core/types/provider";
+import { ProviderResponse } from "../../../../../core/types/Provider";
 import { makePrivateRequest, makeRequest } from "../../../../../core/utils/request";
 import { SetStateAction, useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";

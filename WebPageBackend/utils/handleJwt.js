@@ -9,8 +9,7 @@ const JWT_SECRET = process.env.JWT_SECRET
 const tokenSign = async (user) => sign(
     {
         [propertiesKey.id]: user[propertiesKey.id],
-        role: user.role,
-        name:user.firstName
+        name:user.firstname
     },
     JWT_SECRET,
     { expiresIn: "2h" }

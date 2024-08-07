@@ -12,7 +12,7 @@ const Navbar = () => {
 
   useEffect(() => {
     const currentUserData = getAccessTokenDecoded();
-   // console.log("la data..",currentUserData);
+    console.log("la data..",currentUserData);
     setCurrentUser(currentUserData.name);
 
   }, [location])
@@ -43,16 +43,7 @@ const Navbar = () => {
 
       <div className={drawerActive ? "menu-mobile-container" : "menu-container"}>
         <ul className="main-menu">
-          <li>
-            <NavLink 
-              className="nav-link" 
-              onClick={() => setDrawerActive(false)} 
-              to="/" 
-              
-              >
-              HOME
-            </NavLink>
-          </li>
+         
           <li>
             <NavLink 
               className="nav-link" 

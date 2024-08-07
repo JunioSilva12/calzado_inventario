@@ -13,15 +13,17 @@
   font-size: 24px;
 }
 
+.bg-dark {
+  background-color: rgba(0, 0, 0, 0.9);
+  color: aliceblue;
+}
+
 .product-card-image-admin {
   width: 100px;
   height: 100px;
   margin: 0px 10px;
 }
-.bg-dark{
-  background-color: rgba(0, 0, 0, 0.9);
-  color: aliceblue;
-}
+
 .buttons-container {
   width: 20%;
   display: flex;

@@ -16,7 +16,7 @@ const ButtonIcon = ({text}:Props) => (
     </button>
 
     
-    <img src={ArrowIcon} className="btn-icon-content" style={{ height: '70px' }} />
+    <img src={ArrowIcon} className="btn-icon-content"  />
       
     
   </div>

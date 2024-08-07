@@ -12,13 +12,13 @@ const loadFileImage =async (req, res) => {
       return res.status(400).json({ error: 'No se ha seleccionado ninguna imagen'  });
     }
     // Aquí puedes guardar la información de la imagen en tu base de datos o hacer lo que necesites
-    moverArchivo( req.files.file[0].path , req.files.file[0].originalname);
+    //moverArchivo( req.files.file[0].path , req.files.file[0].originalname);
     res.status(200).json({ message: 'Imagen subida correctamente' , uri: req.files.file[0].originalname });
   }
 
   const storage = multer.diskStorage({
     destination: function (req, file, callback) {
-        const pathStorage = `../ecomerce-Frontend/src/core/assets/images/`
+        const pathStorage = `../ecomerce-Frontend/public/product_images`
         callback(null, pathStorage)
     },
     filename: function (req, file, callback) {

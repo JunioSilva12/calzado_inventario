@@ -44,8 +44,8 @@ const ProductDetails = () => {
           {isLoading ? <ProductInfoLoader /> : (
             <div className="image-price">
               <div className="product-details-card text-center">
-                <img src={`/src/core/assets/images/${product?.imgUrl}`} alt={product?.name}
-                  className="product-details-image" />
+                <img src={`/public/product_images/${product?.imgUrl}`} alt={product?.name}
+                  />
               </div>
               <div className="product-info-fields">
                 <h1 className="product-details-name">
@@ -62,7 +62,7 @@ const ProductDetails = () => {
             {isLoading ? <ProductDescriptionLoader /> : (
               <>
                 <h1 className="product-description-title">
-                  Descripcion del producto
+                  Inventarios del producto
                 </h1>
 
                 <p className="product-description-text">

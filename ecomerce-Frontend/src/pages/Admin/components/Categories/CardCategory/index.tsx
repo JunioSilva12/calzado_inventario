@@ -1,5 +1,5 @@
 import { Category } from "../../../../../core/types/Category";
-import { Link } from "react-router-dom";
+
 import './styles.scss';
 
 type Props = {
@@ -18,13 +18,7 @@ const CardCategory = ({ category, onRemove }: Props) => {
         <div className="col-category">
           <div className="row-category-buttons">
             <div className="category-button ml-25">
-              <Link
-                to={`/admin/categories/${category.id}`}
-                type="button"
-                className="btn btn-outline-secondary btn-block border-radius-10 mb-3"
-              >
-                EDITAR
-              </Link>
+            
             </div>
             <div className="category-button">
               <button

@@ -1,0 +1,96 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+
+datasource db {
+ provider          = "postgresql"
+  url               = env("DATABASE_URL")
+  directUrl         = env("DIRECT_URL")
+}
+
+model Size {
+  id        Int       @id 
+  size      String
+  Inventory Inventory[]
+}
+
+model Provider {
+  idProvider Int       @id
+  name       String
+  ref        String
+  products   Product[]
+}
+
+model Category {
+  id        Int               @id @default(autoincrement())
+  name      String
+  products  ProductxCategory[]
+}
+
+model Product {
+  id         Int               @id @default(autoincrement())
+  name       String
+  imgUrl     String
+  idProvider Int
+  createdAt  DateTime          @default(now())
+  updatedAt  DateTime          @default(now())
+  provider   Provider          @relation(fields: [idProvider], references: [idProvider])
+  inventory  Inventory[]
+  categories ProductxCategory[]
+}
+
+model Inventory {
+  SizeId     Int
+  productId  Int
+  stock      Int
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now())
+  size       Size     @relation(fields: [SizeId], references: [id])
+  product    Product  @relation(fields: [productId], references: [id])
+  Transacciones Transactions[]
+
+
+  @@id([SizeId, productId])
+   
+  
+ 
+}
+
+model ProductxCategory {
+  categoryId Int
+  productId  Int
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now())
+  category   Category @relation(fields: [categoryId], references: [id])
+  product    Product  @relation(fields: [productId], references: [id])
+
+  @@id([categoryId, productId])
+}
+
+model Transactions {
+  ID          Int       @id @default(autoincrement())
+  productId   Int
+  SizeId     Int
+  Inventario  Inventory @relation(fields: [productId, SizeId], references: [productId, SizeId])
+
+  Fecha       DateTime
+  Tipo        String
+  Cantidad    Int
+}
+
+model User {
+  userId    Int      @id @default(autoincrement())
+  firstname String
+  lastname  String
+  email     String   @unique
+  password  String
+  // createdAt DateTime @default(now())
+  // updatedAt DateTime @updatedAt
+}

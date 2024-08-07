@@ -3,7 +3,7 @@ import Navbar from './core/components/Navbar';
 //import Admin from './pages/Admin';
 import Catalog from './pages/Catalog';
 import ProductDetails from './pages/Catalog/components/ProductDetails';
-import Home from './pages/Home';
+//import Home from './pages/Home';
 import Auth from './pages/Auth';
 //import Login from './pages/Auth/components/Login';
 //import Products from './pages/Admin/components/Products';
@@ -16,8 +16,8 @@ const AppRoutes = () => (
   <Router>
     <Navbar />
     <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/home" element={<Home />} />
+      <Route path="/" element={<Catalog />} />
+      {/* <Route path="/home" element={<Home />} /> */}
       <Route path="/products" element={<Catalog />} />
      <Route path="/products/:productId" element={<ProductDetails />} />
     {/*}  <Route path="/auth" element={<Auth />} />*/}

@@ -12,7 +12,7 @@ import { Category, Inventory } from '../../../../../core/types/Product';
 import ImageUpload from '../ImageUpload';
 import StateManagedSelect from 'react-select';
 import { Provider } from '../../../../../core/types/Provider';
-import { Size } from '../../../../../core/types/size';
+import { Size } from     '../../../../../core/types/size';
 //import { TextField, Checkbox } from "@material-ui/core"
 export type FormState = {
   name: string;
@@ -53,13 +53,22 @@ const Form = () => {
   useEffect(() => {
     if (isEditing) {
       makeRequest({ url: `/product/${productId}` })
-        .then((response: { data: { name: string ; price: string; imgUrl: SetStateAction<string>; provider: Provider; categories: Category[]; }; }) => {
+        .then((response: { data: { name: string ; price: string; imgUrl: SetStateAction<string>; provider: Provider; categories: Category[];inventories: Inventory[]; }; }) => {
+          console.log('el producto a cambiar es: ',response);
           setValue('name', response.data.name);
-          
+          setValue('provider', response.data.provider);
+        
+
         
           setProductImgUrl(response.data.imgUrl);
          
           setValue('categories', response.data.categories);
+          setValue('sizes', response.data.inventories.map((inv)=>({id:inv.size,size:inv.size.toString()})));
+
+          response.data.inventories.map((inv)=>{
+            setValue(`inventories.${inv.size}.stock`, inv.stock);  
+})
+
 
         })
     }
