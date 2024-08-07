@@ -8,7 +8,7 @@ const JWT_SECRET = process.env.JWT_SECRET
 
 const tokenSign = async (user) => sign(
     {
-        [propertiesKey.id]: user[propertiesKey.id],
+        id: user.id,
         name:user.firstname
     },
     JWT_SECRET,
