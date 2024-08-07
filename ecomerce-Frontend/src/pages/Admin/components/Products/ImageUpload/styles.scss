@@ -10,7 +10,9 @@
     color: #ffffff;
     padding: 10px 30px;
     cursor: pointer;
+    width: 100%;
   }
+
 }
 
 .upload-text-helper {
@@ -49,12 +51,14 @@
     word-wrap: none;
     width: 200px;
   }
+
+ 
 }
 
 //mobile
 @media(max-width: 576px){
   .upload-button-container label{
-    width: 250px;//tamanho dos outros inputs
+    width: 100%//tamanho dos outros inputs
 
   }
   small{
@@ -62,10 +66,12 @@
   }
   .upload-placeholder{
     width: 100vw !important;
-    margin-left: 40px;
+   text-align: center;
+
 
     .uploaded-image{
       align-self: center;
+     
     }
 
     .upload-progress{

@@ -63,7 +63,7 @@ const ImageUpload = ({onUploadSuccess, productImgUrl}: Props) => {
       
   return (
     <div className="row">
-      <div className="col-6">
+      <div className="">
         <div className="upload-button-container">
        
           <input

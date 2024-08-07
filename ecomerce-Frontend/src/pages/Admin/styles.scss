@@ -3,7 +3,8 @@
 }
 
 .admin-content{
-  padding: 25px 40px 45px 40px;
+  padding: 25px 20px;
+
   flex: 1;
 }
 
@@ -33,6 +34,10 @@
 @media(max-width: 768px){
   .admin-container{
     flex-direction: column;
+  }
+  .admin-content{
+    padding: 0;
+  
   }
   .filter{
     display: flex;

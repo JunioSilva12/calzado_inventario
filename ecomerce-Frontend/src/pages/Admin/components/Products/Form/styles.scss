@@ -8,6 +8,13 @@
 
 }
 
+.col-base{
+ 
+ width: 100%; 
+margin-left: 1.5rem;
+margin-right: 1.5rem;
+
+}
 
 .categories-select__control {
   height: 50px;
@@ -31,9 +38,14 @@
     flex-direction: column;
 
     input {
-      width: 250px;
+      width: 100%;
     }
+    .col-base{
 
+     margin-left: 0;
+     margin-right:0
+     
+     }
     .categories-select__control {
       width: 250px;
       min-width: 50px;
@@ -41,7 +53,8 @@
     }
 
     .input-base {
-      width: 250px;
+      width: 100%;
+      margin:auto;
     }
   }
 }

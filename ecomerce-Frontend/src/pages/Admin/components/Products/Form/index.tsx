@@ -147,7 +147,7 @@ if (inv) {
         title={formTitle}
       >
         <div className="product-form-container">
-          <div className="col-6">
+          <div className="col-base ">
 
             <div className="margin-bottom-30">
               <input
@@ -180,7 +180,7 @@ if (inv) {
                   isLoading={isLoadingCategories}
                   getOptionLabel={(option: Category) => option.name}
                   getOptionValue={(option: Category) => String(option.id)}
-                  classNamePrefix="categories-select"
+                  className="categories-select"
                   placeholder="Categorias..."
                   isMulti
                   />
@@ -208,7 +208,7 @@ if (inv) {
                   isLoading={isLoadingProviders}
                   getOptionLabel={(option: Provider) => option.name}
                   getOptionValue={(option: Provider) => String(option.idProvider)}
-                  classNamePrefix="categories-select"
+                  className="categories-select"
                   placeholder="proveedor..."
                   
                   />
@@ -233,7 +233,7 @@ if (inv) {
             </div>
           </div>
 
-          <div className="mx-4 col-6">
+          <div className="col-base ">
           <div className="margin-bottom-30">
               <Controller
                
@@ -246,7 +246,7 @@ if (inv) {
                   isLoading={isLoadingSizes}
                   getOptionLabel={(option: Size) => option.size}
                   getOptionValue={(option: Size) => String(option.size)}
-                  classNamePrefix="categories-select"
+                  className="categories-select"
                   placeholder="tallas..."
                   isMulti
                  
@@ -269,18 +269,18 @@ if (inv) {
             <div className="margin-bottom-30">
             {(selectedSizes?.length > 0 )? (
                
-              <div>
+              <div  className="">
                  <p>TALLAS:</p>  
               
                   { selectedSizes.map(size => (
                     
-            <span key={size.id} className="badge  bg-primary m-2">
+            <span key={size.id} className="badge  bg-primary my-2 mx-0">
              {size.size}
              <input
            
             type="number"
             className="cant-input form-control "
-          defaultValue={1}
+           defaultValue={1}
             min="1"
             placeholder="Stock"
          

@@ -9,6 +9,7 @@
   color: #ffffff;
   padding: 10px 30px;
   cursor: pointer;
+  width: 100%;
 }
 
 .upload-text-helper {
@@ -46,14 +47,14 @@
 }
 @media (max-width: 576px) {
   .upload-button-container label {
-    width: 250px;
+    width: 100%;
   }
   small {
     display: none;
   }
   .upload-placeholder {
     width: 100vw !important;
-    margin-left: 40px;
+    text-align: center;
   }
   .upload-placeholder .uploaded-image {
     align-self: center;

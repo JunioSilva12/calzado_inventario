@@ -7,6 +7,12 @@
   width: 120px;
 }
 
+.col-base {
+  width: 100%;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+}
+
 .categories-select__control {
   height: 50px;
   border-radius: 10px !important;
@@ -28,7 +34,11 @@
     flex-direction: column;
   }
   .product-form-container input {
-    width: 250px;
+    width: 100%;
+  }
+  .product-form-container .col-base {
+    margin-left: 0;
+    margin-right: 0;
   }
   .product-form-container .categories-select__control {
     width: 250px;
@@ -36,6 +46,7 @@
     height: 100%;
   }
   .product-form-container .input-base {
-    width: 250px;
+    width: 100%;
+    margin: auto;
   }
 }/*# sourceMappingURL=styles.css.map */
