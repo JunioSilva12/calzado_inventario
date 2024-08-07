@@ -23,7 +23,7 @@ router.post(
 
 router.post(
     '/image',
-    [authMiddleware],
+    // [authMiddleware],
     uploadImage.fields([{ name: 'file', maxCount: 1 }]),
     loadFileImage
 )

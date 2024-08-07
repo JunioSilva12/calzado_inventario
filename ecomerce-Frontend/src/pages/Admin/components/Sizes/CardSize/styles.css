@@ -6,7 +6,7 @@
   width: 80%;
 }
 .main-row .col-category {
-  width: 50%;
+  width: 30%;
 }
 
 .card-item h2 {
@@ -24,11 +24,11 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 100%;
+  width: 80%;
 }
 .row-category-buttons .category-button {
-  width: 180px;
-  margin-left: 27px;
+  width: 100px;
+  margin: 0;
 }
 
 @media (max-width: 768px) {
