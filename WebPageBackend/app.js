@@ -24,14 +24,14 @@ morganBody(app);
 //app.use(express.static('../ecomerce-Frontend/dist'))
 // Servir archivos estáticos desde el directorio frontend
 //app.use('/public', express.static(path.join(__dirname, 'dist')));
-app.use('/public', express.static(path.join(__dirname, '../ecomerce-Frontend/public')));
+
 app.use(express.static(path.join(__dirname, 'dist')));
 //app.use(express.static(path.join(__dirname, '../ecomerce-Frontend/dist')));
 
 app.use('/api', require('./routes'))
 
 // Configuración de morgan-body
-
+app.use('/public', express.static(path.join(__dirname, '../ecomerce-Frontend/public')));
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist/index.html'));
 });
