@@ -1,6 +1,6 @@
 const { matchedData } = require('express-validator')
 const { encrypt, compare } = require('../utils/handlePassword')
-const { usersModel } = require('../models')
+
 const { tokenSign } = require('../utils/handleJwt')
 const { handleHttpError } = require('../utils/handleError')
 const {prisma} = require('../config/posgresql');

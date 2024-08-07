@@ -1,7 +1,7 @@
 const { sign, verify } = require('jsonwebtoken')
-const getProperties = require('./handlePropertiesEngine')
 
-const propertiesKey = getProperties()
+
+
 
 const JWT_SECRET = process.env.JWT_SECRET
 

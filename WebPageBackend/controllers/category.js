@@ -1,5 +1,5 @@
 const { matchedData } = require('express-validator');
-const { categoryModel } = require('../models');
+
 /*const { verifyAdminToken } = require('../utils/handleJwt');*/
 const { handleHttpError } = require('../utils/handleError');
 const {prisma} = require('../config/posgresql');
