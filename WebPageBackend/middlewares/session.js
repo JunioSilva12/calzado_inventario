@@ -17,7 +17,7 @@ const authMiddleware = async (req, res, next) => {
         if (!dataToken) return handleHttpError(res, 'Error data token', 401)
 
         
-        req.user = await prisma.user.findUnique({where:{id:dataToken.id}})
+        req.user = await prisma.user.findUnique({where:{userId:dataToken.id}})
         console.log("req...",req.user); 
         next()
     } catch (error) {
