@@ -1,9 +1,9 @@
 const { handleHttpError } = require("../utils/handleError")
 const { verifyToken } = require("../utils/handleJwt")
-const { usersModel } = require('../models')
-const getProperties = require('../utils/handlePropertiesEngine')
+const {prisma} = require('../config/posgresql');
 
-const propertiesKey = getProperties()
+
+
 
 
 const authMiddleware = async (req, res, next) => {
@@ -16,10 +16,8 @@ const authMiddleware = async (req, res, next) => {
        console.log("iniciando sesion...",dataToken);
         if (!dataToken) return handleHttpError(res, 'Error data token', 401)
 
-        const query = {
-            [propertiesKey.id]: dataToken[propertiesKey.id]
-        }
-        req.user = await usersModel.findOne(query)
+        
+        req.user = await prisma.user.findUnique({where:{id:dataToken.id}})
         console.log("req...",req.user); 
         next()
     } catch (error) {

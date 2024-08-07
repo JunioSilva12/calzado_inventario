@@ -10,7 +10,7 @@ const path = require('path');
 
 const moverArchivo = (imagePath ,nameFile) => {
   console.log("url de la imagen...",imagePath);
-  const pathTosend = `../ecomerce-Frontend/src/core/assets/images/`  
+  const pathTosend = `.`  
 
     try {
         fs.renameSync(`../../storage/Product_image/${nameFile}`, path.join(pathTosend, nameFile));
