@@ -41,7 +41,7 @@ router.post('/image', upload.single('file'), async (req, res) => {
     try {
       const { data, error } = await supabase.storage
         .from('productImages')
-        .upload(`public/${req.file.originalname}`, req.file.buffer);
+        .upload(`public/${ req.file.filename}`, req.file.buffer);
   
       if (error) {
         console.log('el error',error);

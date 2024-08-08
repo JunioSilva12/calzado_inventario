@@ -30,6 +30,7 @@ const ImageUpload = ({onUploadSuccess, productImgUrl}: Props) => {
 
      console.log("...p",payload);
     console.log("...p",selectedImage);
+    console.log("...p",fileName);
     makePrivateRequest({
       url: '/product/image',
       method: 'POST',
