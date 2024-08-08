@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { toast } from 'react-toastify';
 import './styles.scss';
 import { AxiosProgressEvent } from 'axios';
+import imageCompression from 'browser-image-compression';
 
 type Props ={
   onUploadSuccess: (imgUrl: string) => void;
@@ -48,13 +49,28 @@ const ImageUpload = ({onUploadSuccess, productImgUrl}: Props) => {
 
   }
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     
     if( event.target.name === 'image'){
     const selectedImage = event.target.files?.[0];
     console.log(selectedImage);
     if (selectedImage) {
-      uploadImage(selectedImage);
+      
+        try {
+          // Opciones de compresión
+          const options = {
+            maxSizeMB: 1,
+            maxWidthOrHeight: 800,
+            useWebWorker: true
+          };
+          // Comprimir la imagen
+          const compressedFile = await imageCompression(selectedImage, options);
+          uploadImage(compressedFile);
+        } catch (error) {
+          console.error('Error while compressing image:', error);
+        }
+      
+     
     }
        }
       }
