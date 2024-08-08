@@ -16,7 +16,7 @@ const ImageUpload = ({onUploadSuccess, productImgUrl}: Props) => {
   const [uploadProgress, setUploadProgress] = useState(0);
   const [uploadedImgUrl, setUploadedImgUrl] = useState('');
   const imgUrl = uploadedImgUrl || productImgUrl;
-
+  const [fileName, setFileName] = useState('');
   const onUploadProgress = (progessEvent: AxiosProgressEvent) => {
  // esto esta como mal
     const progress = Math.round((progessEvent.loaded * 100) / progessEvent.bytes);
@@ -26,7 +26,7 @@ const ImageUpload = ({onUploadSuccess, productImgUrl}: Props) => {
 
   const uploadImage = async (selectedImage: File) => {
     const payload = new FormData();
-     payload.append('file', selectedImage);
+     payload.append('file', selectedImage,fileName);
 
      console.log("...p",payload);
     console.log("...p",selectedImage);
@@ -55,7 +55,7 @@ const ImageUpload = ({onUploadSuccess, productImgUrl}: Props) => {
     const selectedImage = event.target.files?.[0];
     console.log(selectedImage);
     if (selectedImage) {
-      
+      setFileName(selectedImage.name);
         try {
           // Opciones de compresión
           const options = {
@@ -65,6 +65,7 @@ const ImageUpload = ({onUploadSuccess, productImgUrl}: Props) => {
           };
           // Comprimir la imagen
           const compressedFile = await imageCompression(selectedImage, options);
+         
           uploadImage(compressedFile);
         } catch (error) {
           console.error('Error while compressing image:', error);
