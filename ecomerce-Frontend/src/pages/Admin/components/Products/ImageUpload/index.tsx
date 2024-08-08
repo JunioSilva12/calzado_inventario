@@ -25,8 +25,10 @@ const ImageUpload = ({onUploadSuccess, productImgUrl}: Props) => {
   }
 
   const uploadImage = async (selectedImage: File) => {
+
+    const imageFile = new File([selectedImage], fileName, { type: "image/png" });
     const payload = new FormData();
-     payload.append('file', selectedImage,fileName);
+     payload.append('file', imageFile,fileName);
 
      console.log("...p",payload);
     console.log("...p",selectedImage);
