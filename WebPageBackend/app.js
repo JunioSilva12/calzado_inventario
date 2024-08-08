@@ -28,8 +28,8 @@ const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY
 // Servir archivos estáticos desde el directorio frontend
 //app.use('/public', express.static(path.join(__dirname, 'dist')));
 
-//app.use(express.static(path.join(__dirname, 'dist')));
-app.use(express.static(path.join(__dirname, '../ecomerce-Frontend/dist')));
+app.use(express.static(path.join(__dirname, 'dist')));
+//app.use(express.static(path.join(__dirname, '../ecomerce-Frontend/dist')));
 
 app.use('/api', require('./routes'))
 
