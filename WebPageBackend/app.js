@@ -36,7 +36,7 @@ app.use('/api', require('./routes'))
 // Configuración de morgan-body
 app.use('/public', express.static(path.join(__dirname, '../ecomerce-Frontend/public')));
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../ecomerce-Frontend/dist/index.html'));
+  res.sendFile(path.join(__dirname, 'dist/index.html'));
 });
 
 
