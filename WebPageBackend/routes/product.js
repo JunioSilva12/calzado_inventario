@@ -41,8 +41,8 @@ router.post('/image', upload.single('file'), async (req, res) => {
     try {
       const { data, error } = await supabase.storage
         .from('productImages')
-        .upload(`public/${ req.file.name}`, req.file.buffer);
-  
+        .upload(`public/${ req.file.originalname}`, req.file.buffer);
+        console.log('body....',req.body)
       if (error) {
         console.log('el error',error);
         throw error;
@@ -50,7 +50,7 @@ router.post('/image', upload.single('file'), async (req, res) => {
   
       const { publicURL, error: publicURLError } = supabase.storage
         .from('productImages')
-        .getPublicUrl(`public/${req.file.name}`);
+        .getPublicUrl(`public/${req.file.originalname}`);
   
       if (publicURLError) {
         throw publicURLError;
