@@ -42,7 +42,7 @@ const getImgProduct = (url:string ) : string =>{
 const ProductCard = ({ product }: Props) =>(
   
   <div className="card-base border-radius-10 product-card">
-    <img src={`/public/product_images/${product.imgUrl}`} alt={product.name} className="product-card-image"/>
+    <img src={`https://qxmmzyiseveolkmgrcts.supabase.co/storage/v1/object/public/productImages/public/${product.imgUrl}`} alt={product.name} className="product-card-image"/>
    
     <div className="product-info">
       <h6 className="product-name">

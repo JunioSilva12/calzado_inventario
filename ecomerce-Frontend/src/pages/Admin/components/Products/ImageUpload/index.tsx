@@ -98,7 +98,7 @@ const ImageUpload = ({onUploadSuccess, productImgUrl}: Props) => {
         )}
         {(imgUrl && uploadProgress=== 0) && (
           <img
-            src={`/public/product_images/${imgUrl}`}
+            src={`https://qxmmzyiseveolkmgrcts.supabase.co/storage/v1/object/public/productImages/public/${imgUrl}`}
             alt={imgUrl}
             className="uploaded-image"
           />

@@ -8,7 +8,7 @@ type LoginData = {
   password: string;
 }
 
-const BASE_URL = 'https://calzado-inventario.onrender.com/api';
+const BASE_URL = 'http://localhost:3000/api';
 //const BASE_URL = 'http://localhost:3000/api';
 
 axios.interceptors.response.use(function (response) {

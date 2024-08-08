@@ -18,7 +18,7 @@ const Card = ({ product, key, onRemove }: Props) => {
     <div className="card-base product-card-admin">
       <div className="text-center border-right py-3 border-img">
         <img
-          src={`/public/product_images/${product.imgUrl}`}
+          src={`https://qxmmzyiseveolkmgrcts.supabase.co/storage/v1/object/public/productImages/public/${product.imgUrl}`}
           alt={product.name}
           className="product-card-image-admin"
         />

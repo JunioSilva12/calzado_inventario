@@ -10,6 +10,8 @@ const morganBody = require('morgan-body')
 //const { dbConnectMySQL } = require('./config/mysql');
 const { dbConnectPostgresql , prisma  } = require('./config/posgresql');
 //const { usersModel ,proveedorModel ,productModel ,categoryModel , productXcategoryModel  } = require('./models/');
+const { createClient } = require('@supabase/supabase-js');
+
 
 const app = express()
 app.use(cors())
@@ -19,21 +21,22 @@ morganBody(app);
 
 
 
+const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
 
 //app.use(morgan('dev'));
 //app.use(express.static('../ecomerce-Frontend/dist'))
 // Servir archivos estáticos desde el directorio frontend
 //app.use('/public', express.static(path.join(__dirname, 'dist')));
 
-app.use(express.static(path.join(__dirname, 'dist')));
-//app.use(express.static(path.join(__dirname, '../ecomerce-Frontend/dist')));
+//app.use(express.static(path.join(__dirname, 'dist')));
+app.use(express.static(path.join(__dirname, '../ecomerce-Frontend/dist')));
 
 app.use('/api', require('./routes'))
 
 // Configuración de morgan-body
 app.use('/public', express.static(path.join(__dirname, '../ecomerce-Frontend/public')));
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist/index.html'));
+  res.sendFile(path.join(__dirname, '../ecomerce-Frontend/dist/index.html'));
 });
 
 

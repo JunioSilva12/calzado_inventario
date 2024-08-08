@@ -44,7 +44,7 @@ const ProductDetails = () => {
           {isLoading ? <ProductInfoLoader /> : (
             <div className="image-price">
               <div className="product-details-card text-center">
-                <img src={`/public/product_images/${product?.imgUrl}`} alt={product?.name}
+                <img src={`https://qxmmzyiseveolkmgrcts.supabase.co/storage/v1/object/public/productImages/public/${product?.imgUrl}`} alt={product?.name}
                   />
               </div>
               <div className="product-info-fields">
