@@ -39,12 +39,12 @@ const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY
 // Ruta para subir archivos
 router.post('/image', upload.single('file'), async (req, res) => {
     try {
-        const fileName = req.file.originalname;
-   
+       
+      console.log('body....',req.body)
       const { data, error } = await supabase.storage
         .from('productImages')
-        .upload(`public/${fileName}`, req.file.buffer);
-        console.log('body....',req.body)
+        .upload(`public/${req.file.originalname}`, req.file.buffer);
+      
       if (error) {
         console.log('el error',error);
         throw error;
@@ -52,7 +52,7 @@ router.post('/image', upload.single('file'), async (req, res) => {
   
       const { publicURL, error: publicURLError } = supabase.storage
         .from('productImages')
-        .getPublicUrl(`public/${fileName}`);
+        .getPublicUrl(`public/${req.file.originalname}`);
   
       if (publicURLError) {
         throw publicURLError;
