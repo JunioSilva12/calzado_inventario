@@ -57,6 +57,7 @@
     text-align: center;
   }
   .upload-placeholder .uploaded-image {
+    margin-top: 5px;
     align-self: center;
   }
   .upload-placeholder .upload-progress {

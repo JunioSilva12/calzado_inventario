@@ -6,6 +6,24 @@
   margin-top: 30px;
 }
 
+.header-size {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between; /* Alinea los elementos al inicio y al final */
+  align-items: center; /* Opcional: Alinea verticalmente si es necesario */
+  margin-bottom: 25px;
+  width: 100%;
+}
+
+.img-product {
+  max-width: 400px; /* Asegura que la imagen ocupe todo el ancho del contenedor */
+  max-height: 400px; /* Asegura que la imagen ocupe toda la altura del contenedor */
+  -o-object-fit: cover;
+     object-fit: cover; /* Recorta la imagen para que cubra todo el contenedor */
+  -o-object-position: center;
+     object-position: center; /* Centra la imagen dentro del contenedor */
+}
+
 .product-details {
   padding: 50px 60px 90px 90px;
 }
@@ -51,7 +69,7 @@
   line-height: 33px;
   letter-spacing: -0.015em;
   color: #9e9e9e;
-  margin-bottom: 25px;
+  padding-right: 10px;
 }
 
 .product-description-text {
@@ -59,6 +77,20 @@
   line-height: 25px;
   letter-spacing: -0.015em;
   color: #9e9e9e;
+}
+
+.buttons-container-inv {
+  margin: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.btn-product {
+  width: 135px !important;
+  margin: 0px !important;
+  padding-left: 10px;
 }
 
 .product-details-name {
@@ -78,6 +110,10 @@
 }
 
 @media (max-width: 768px) {
+  .img-product {
+    max-width: 200px; /* Asegura que la imagen ocupe todo el ancho del contenedor */
+    max-height: 200px; /* Asegura que la imagen ocupe toda la altura del contenedor */
+  }
   .product-details {
     display: flex;
     flex-direction: column;
@@ -116,7 +152,7 @@
   .product-details {
     display: flex;
     flex-direction: column;
-    padding: 30px;
+    padding: 10px;
   }
   .product-details-card {
     width: 100%;
@@ -124,6 +160,7 @@
     flex-direction: column;
     align-items: center;
     padding: 10px;
+    border: none;
   }
   .product-details-image {
     width: 200px;
