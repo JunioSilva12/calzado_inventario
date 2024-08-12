@@ -1,4 +1,4 @@
-import { getAccessTokenDecoded, logout } from '../../utils/auth';
+import { getAccessTokenDecoded, logout ,isTokenValid} from '../../utils/auth';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { Link, NavLink, useLocation, useNavigate   } from 'react-router-dom';
@@ -8,11 +8,16 @@ import menu from '../../assets/images/menu.svg';
 const Navbar = () => {
   const [drawerActive, setDrawerActive] = useState(false);
   const [currentUser, setCurrentUser] = useState('');
+  const [isLogged, setLogged] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
     const currentUserData = getAccessTokenDecoded();
-    console.log("la data..",currentUserData);
+    const isLogged = isTokenValid();
+    console.log("la data..",isLogged);
+    if (isLogged) {
+      setLogged(true);
+    }
     setCurrentUser(currentUserData.name);
 
   }, [location])
@@ -87,7 +92,7 @@ const Navbar = () => {
           {
             drawerActive && (
               <>
-                {!currentUser && (
+                {!(currentUser&& isLogged) && (
                   <li>
                     <Link 
                       to="/auth/login" 
@@ -106,7 +111,7 @@ const Navbar = () => {
       </div>
 
       <div className="user-info-dnone text-right">
-        {currentUser && (
+        {(currentUser&& isLogged) && (
           <>
             {currentUser}
             <a
@@ -123,7 +128,7 @@ const Navbar = () => {
             </a>
           </>
         )}
-        {!currentUser && (
+        {!(currentUser && isLogged) && (
           <Link 
             to="/auth/login" 
             className="nav-link active" 

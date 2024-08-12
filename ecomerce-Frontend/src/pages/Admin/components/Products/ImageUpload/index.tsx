@@ -62,8 +62,8 @@ const ImageUpload = ({onUploadSuccess, productImgUrl}: Props) => {
         try {
           // Opciones de compresión
           const options = {
-            maxSizeMB: 1,
-            maxWidthOrHeight: 800,
+            maxSizeMB: 0.8,
+            maxWidthOrHeight: 400,
             useWebWorker: true
           };
           // Comprimir la imagen

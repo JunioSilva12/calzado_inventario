@@ -96,7 +96,7 @@ const Login = () => {
 
 
         <div className="login-submit">
-          <ButtonIcon text="login" />
+          <ButtonIcon text="login"  />
         </div>
 
         <div className="text-center">
