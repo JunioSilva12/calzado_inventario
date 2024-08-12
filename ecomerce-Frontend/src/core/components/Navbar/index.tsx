@@ -73,7 +73,7 @@ const Navbar = () => {
             drawerActive && (
               <li>
                 {                 
-                  currentUser && (
+                 ( currentUser&& isLogged )&& (
                     <a 
                       href="#logout" 
                       className="nav-link active d-inline"
