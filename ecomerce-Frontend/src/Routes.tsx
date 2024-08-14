@@ -10,11 +10,16 @@ import Auth from './pages/Auth';
 //import Users from './pages/Admin/components/Users';
 import Admin from './pages/Admin';
 import PrivateRoutes from './core/components/Routes/PrivateRoutes';
+import Operations from './pages/Operations';
 //import Login from './pages/Auth/components/Login';
 
 const AppRoutes = () => (
   <Router>
     <Navbar />
+
+
+   
+
     <Routes>
       <Route path="/" element={<Catalog />} />
       {/* <Route path="/home" element={<Home />} /> */}
@@ -23,20 +28,25 @@ const AppRoutes = () => (
     {/*}  <Route path="/auth" element={<Auth />} />*/}
     <Route path="/" element={<PrivateRoutes />}>
          <Route path="/admin/*" element={<Admin/>} />
+         <Route path="/operations/*" element={<Operations/>} />
+
     </Route>
     
     {/*   <Route path="/admin/products/*" element={<Admin />} />
       <Route path="/admin/users/*" element={<Admin />} />
       <Route path="/admin/categories/*" element={<Admin />} />*/}
       <Route path="auth/*" element={<Auth />} >
+      <Route path="operations/*" element={<Operations />} ></Route>
         
       </Route>
      
       
       {/* Redirecciones */}
+      <Route path="/operations" element={<Navigate to="/operations/Inputs" />} />
       <Route path="/auth" element={<Navigate to="/auth/login" />} />
      {<Route path="/admin" element={<Navigate to="/admin/products" />} />   }
     </Routes>
+    
   </Router>
 );
 

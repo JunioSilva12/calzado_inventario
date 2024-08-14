@@ -1,5 +1,5 @@
 import { getAccessTokenDecoded, logout ,isTokenValid} from '../../utils/auth';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useState } from 'react';
 import { Link, NavLink, useLocation, useNavigate   } from 'react-router-dom';
 import './styles.scss';
@@ -10,7 +10,7 @@ const Navbar = () => {
   const [currentUser, setCurrentUser] = useState('');
   const [isLogged, setLogged] = useState(false);
   const location = useLocation();
-
+  const boxRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
     const currentUserData = getAccessTokenDecoded();
     const isLogged = isTokenValid();
@@ -23,17 +23,36 @@ const Navbar = () => {
   }, [location])
 
   const history = useNavigate ();
+  useEffect(() => {
+    // Función para manejar clic fuera del cuadro
+    const handleClickOutside = (event: MouseEvent  | TouchEvent) => {
+      if (boxRef.current && !boxRef.current.contains(event.target as Node)) {
+        setDrawerActive(false)// Llama al evento si el clic es fuera del cuadro
+      }
+    };
+
+    // Agregar el evento de clic al documento
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('touchstart', handleClickOutside);
 
 
+    // Eliminar el evento al desmontar el componente
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
 
-  const handleLogout = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-    event.preventDefault();
+    };
+  }, [setDrawerActive]);
+
+
+  const handleLogout = () => {
+    //event.preventDefault();
     history('/auth/login');
     logout();
   }
   
   return (
-    <nav className="bg-primary main-nav">
+    <nav ref={boxRef} className="bg-primary main-nav">
 
       <Link to="/" className="nav-logo-text">
         <h4>TIENDA DE CALZADO</h4>
@@ -68,25 +87,37 @@ const Navbar = () => {
               ADMIN
             </NavLink>
           </li>
+          
+          <li>
+            <NavLink 
+              className="nav-link" 
+              onClick={() => {setDrawerActive(false)}}
+              to="/operations"
+            >
+              OPERACIONES
+            </NavLink>
+          </li>
 
           {
             drawerActive && (
-              <li>
-                {                 
+              
+                                 
                  ( currentUser&& isLogged )&& (
+                  <li>
                     <a 
                       href="#logout" 
                       className="nav-link active d-inline"
-                      onClick={(e) => {
+                      onClick={() => {
                         setDrawerActive(false)
-                        handleLogout(e)
+                        handleLogout()
                       }}
                     >
                       {`LOGOUT - ${currentUser}`}
                     </a>
+                    </li>
                   )
-                }
-              </li>
+                
+              
             )
           }
           {
@@ -117,10 +148,10 @@ const Navbar = () => {
             <a
               href="#logout"
               className="nav-link active d-inline"
-              onClick={(e) => {
+              onClick={() => {
                 
                 setDrawerActive(false)
-                handleLogout(e)
+                handleLogout()
 
               }}
             >

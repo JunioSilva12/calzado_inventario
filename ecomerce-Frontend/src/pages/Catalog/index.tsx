@@ -9,6 +9,7 @@ import ProductCardLoader from './components/Loaders/ProductCardLoader';
 import './styles.scss';
 import Pagination from '../../core/components/Pagination';
 import { useCallback } from 'react';
+import { Provider } from '../../core/types/Provider';
 
 const Catalog = () => {
 
@@ -18,22 +19,24 @@ const Catalog = () => {
  console.log("pr..",productResponse)
   const [name, setName] = useState('');
   const [category, setCategory] = useState<Category>();
-
+  const [provider, setProvider] = useState<Provider>();
   const getProducts = useCallback(() => {
     const params = {
       page: activePage,
       linesPerPage: 15,
       name: name,
+      provider:provider?.idProvider,
       categoryId: category?.id
 
     }
     setIsLoading(true);
-    makeRequest({ url: '/product', params })
+    console.log("filter...",params);
+    makeRequest({ url: '/product', params: params })
       .then((response: { data: SetStateAction<ProductResponse | undefined>; }) => setProductResponse(response.data))
       .finally(() => {
         setIsLoading(false);
       })
-  }, [activePage, name, category]);
+  }, [activePage, name, category,provider]);
 
   useEffect(() => {
     getProducts();
@@ -49,14 +52,23 @@ const Catalog = () => {
     setCategory(category);
   }
 
+  const handleChangeProvider = (prov: Provider) => {
+    setActivePage(0);
+    setProvider(prov);
+  }
+
   const clearFilters = () => {
     setActivePage(0);
     setCategory(undefined);
     setName('');
+    setProvider(undefined);
+
   }
 
   return (
     <div className="catalog-container">
+
+<div className="catalog-content">
       <div className="filter-container">
         <h1 className="catalog-title">
           Catálogo de produtos
@@ -64,8 +76,10 @@ const Catalog = () => {
         <ProductFilters 
           name={name}
           category={category}
+          provider={provider}
           handleChangeCategory={handleChangeCategory}
           handleChangeName={handleChangeName}
+          handleChangeProvider={handleChangeProvider}
           clearFilters={clearFilters}
         />
       </div>
@@ -87,6 +101,7 @@ const Catalog = () => {
         />
       }
 
+    </div>
     </div>
   )
 }

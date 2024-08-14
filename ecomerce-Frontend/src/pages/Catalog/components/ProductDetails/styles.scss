@@ -1,10 +1,8 @@
 .product-details-container {
-  margin: 40px 0px;
-  padding: 0px 40px;
+  margin: 0px 40px;
+  padding: 100px 100px;
 
-  .product-price-container {
-    margin-top: 30px;
-  }
+
 }
 
 .header-size{
@@ -154,8 +152,8 @@ justify-content: space-between; /* Alinea los elementos al inicio y al final */
 
 @media (max-width: 676px){
   .product-details-container{
-    margin-top: 5px;
-    padding: 10px;
+    margin-top: 0px;
+    padding: 80px 0px;
   }
 
   .product-details{

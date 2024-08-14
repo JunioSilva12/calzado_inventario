@@ -15,8 +15,8 @@ CREATE TABLE "Transactions" (
     "ID" SERIAL NOT NULL,
     "productId" INTEGER NOT NULL,
     "SizeId" INTEGER NOT NULL,
-    "Fecha" TIMESTAMP(3) NOT NULL,
-    "Tipo" TEXT NOT NULL,
+    "data" TIMESTAMP(3) NOT NULL,
+    "Type" TEXT NOT NULL,
     "Cantidad" INTEGER NOT NULL,
 
     CONSTRAINT "Transactions_pkey" PRIMARY KEY ("ID")

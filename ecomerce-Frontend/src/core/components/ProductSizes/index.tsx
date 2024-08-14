@@ -12,7 +12,7 @@ const ProductSizes = ({sizes}:Props) =>{
   console.log('::::',sizes);
 
 
-    return ( <div>
+    return ( <div style={{ display: 'flexbox', width:'80%',  overflow: "hidden"}}>
       Tallas: 
 
           {sizes.map( size => (

@@ -74,15 +74,23 @@ model ProductxCategory {
   @@id([categoryId, productId])
 }
 
+enum TransactionType {
+  ENTRADA
+  SALIDA
+}
+
 model Transactions {
   ID          Int       @id @default(autoincrement())
   productId   Int
   SizeId     Int
   Inventario  Inventory @relation(fields: [productId, SizeId], references: [productId, SizeId])
 
-  Fecha       DateTime
-  Tipo        String
-  Cantidad    Int
+  date       DateTime
+  Type        String
+  quantity    Int
+
+
+   @@unique([productId, SizeId,Type, date])
 }
 
 model User {

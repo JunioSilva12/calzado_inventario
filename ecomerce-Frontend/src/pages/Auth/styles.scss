@@ -1,9 +1,15 @@
 .auth-container {
   display: flex;
-  padding: 40px 40px 100px 0px;
+  padding-top: 100px;
+  padding: 0 40px 100px 40px;
   justify-content: center;
   background: url(~core/assets/images/auth-background.svg) no-repeat bottom;
   background-size: 100%;
+
+}
+
+.auth-content{
+  padding-top: 100px;
 
 }
 
@@ -35,6 +41,10 @@
 
 /*mobile*/
 @media(max-width: 576px){
+  .auth-content{
+    padding-top: 0px;
+  
+  }
   .auth-container{
     margin: 0px;
     padding: 40px 0px 0px 0px;

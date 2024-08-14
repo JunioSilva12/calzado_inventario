@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import Card from '../Card';
 import CardLoader from '../Loaders/ProductCardLoader';
 import ProductFilters from '../../../../../core/components/ProductFilters';
+import { Provider } from '../../../../../core/types/Provider';
 
 
 const List = () => {
@@ -17,6 +18,9 @@ const List = () => {
 
   const [name, setName] = useState('');
   const [category, setCategory] = useState<Category>();
+  const [provider, setProvider] = useState<Provider>(); 
+
+
 
   const handleChangeName = (name: string) => {
     setActivePage(0);
@@ -28,10 +32,18 @@ const List = () => {
     setCategory(category);
   }
 
+  const handleChangeProvider = (prov: Provider) => {
+    setActivePage(0);
+    setProvider(prov);
+  }
+
+
   const clearFilters = () => {
     setActivePage(0);
     setCategory(undefined);
+    setProvider(undefined);
     setName('');
+
   }
 
   const getProducts = useCallback(() => {
@@ -39,7 +51,8 @@ const List = () => {
       page: activePage,
       linesPerPage: 4,
       name: name,
-      categoryId: category?.id
+      categoryId: category?.id,
+      provider:provider?.idProvider,
 
     }
     setIsLoading(true);
@@ -49,7 +62,7 @@ const List = () => {
         setIsLoading(false);
       
       })
-  }, [activePage, name, category]);
+  }, [activePage, name, category,provider]);
 
   useEffect(() => {
     getProducts();
@@ -81,15 +94,17 @@ const List = () => {
 
     <div className="admin-products-list">
       <div className="filter">
-        <button className="btn btn-primary btn-lg" onClick={handleCreate}>
+        <button className="btn btn-primary btn-lg " onClick={handleCreate}>
           ADICIONAR
         </button>
 
         <ProductFilters
           name={name}
           category={category}
+          provider={provider}
           handleChangeCategory={handleChangeCategory}
           handleChangeName={handleChangeName}
+          handleChangeProvider={handleChangeProvider}
           clearFilters={clearFilters}
         />
       </div>

@@ -115,7 +115,7 @@ const getProduct = () => {
 
                 {isLoading ? <CardLoader /> : (
           product?.inventories?.map(inv => (
-            <InventoryCard inventory={inv} onRemove={onRemove} key={inv.size} />
+            (inv.stock !== 0) && ( <InventoryCard inventory={inv} onRemove={onRemove} key={inv.size} />)
           ))
         )}
 

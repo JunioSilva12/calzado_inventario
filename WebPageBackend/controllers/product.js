@@ -51,8 +51,31 @@ const getProductxCategory = async (id) => {
 
 // Ruta para obtener todos los productos
 const getProducts = async (req, res)  => {
+
+
+   const query = req.query;
+    console.log("filters...",query);
+    
+    const where = {};
+
+    if (!(query.name == undefined || query.name == "")) {
+      where.name =  {
+        contains: query.name, // El texto que quieres buscar en el nombre
+        mode: 'insensitive', // Opcional: hace que la búsqueda sea insensible a mayúsculas y minúsculas
+      };
+    }
+    if (query.provider !== undefined) {
+      where.idProvider = parseInt(query.provider,10);
+    }
+    if (query.categoryId !== undefined) {
+      where.categories ={some:{categoryId: parseInt(query.categoryId,10)}} 
+    
+    }
+
+    console.log("query...",where);
     try {
          products = await prisma.product.findMany( {
+          where:where,
           include: {
             categories: {
               include: {
@@ -109,7 +132,7 @@ const getProducts = async (req, res)  => {
        
     } catch (error) {
         res.status(500).json({ message: 'Error al obtener los productos' });
-    //    console.log('error....',error)
+        console.log('error....',error)
     }
 };
 

@@ -8,7 +8,7 @@ const {prisma} = require('../config/posgresql');
 // Ruta para obtener todos los productos
 const getInventories = async (req, res)  => {
     try {
-        const sizes = await prisma.size.findMany();
+        const sizes = await prisma.inventory.findMany({ where:  { SizeId_productId :{productId:parseInt(req.params.id , 10)}}});
       //  console.log(sizes)
        const  sizeResponse ={
             content: sizes,
@@ -32,7 +32,9 @@ const getInventories = async (req, res)  => {
 
       
          console.log('inv...',req.body)
-         
+         const item = req.body
+         const date = new Date();
+        const onlyDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
         const inventory = await prisma.inventory.create({data:{
           
             stock: parseInt(req.body.stock , 10),
@@ -44,6 +46,17 @@ const getInventories = async (req, res)  => {
             },
             
           }});
+
+          await prisma.transactions.create({
+            data :  {
+                // Define los campos para crear un nuevo registro si no existe
+                productId: parseInt(item.idProduct , 10),
+                SizeId: item.size.id ,
+                date: onlyDate,
+                Type: 'ENTRADA',
+                quantity: parseInt(req.body.stock , 10),
+              },
+          })
       
         res.json(inventory);
     } catch (error) {
@@ -81,19 +94,20 @@ const delateInventory =  async (req, res) => {
 const updateInventory = async (req, res) => {
    
     try {
-        
-        const { id , ...res} = matchedData(req)
+        const item= req.body
+      
+        const inv = await prisma.inventory.findUnique({ where:  { SizeId_productId :{SizeId:item.size,productId:parseInt(req.params.id , 10)}}});
+
        
-        let category = await prisma.category.findUnique({ where: {id: id}});
-        if (!category) {
+        if (!inv) {
             return res.status(404).json({ mensaje: 'Producto no encontrado' });
         }else{
-        await prisma.category.update( {where: { id: category.id  },
+         const data = await prisma.inventory.update( {where: { id: category.id  },
             data: {
-                ...res,
+               stock: item.stock,
               updatedAt: new Date(), // Actualiza el campo updatedAt manualmente
             }, })
-        return res.send({ data })
+        return res.send( data )
         }
     } catch (error) {
         console.log(error)
