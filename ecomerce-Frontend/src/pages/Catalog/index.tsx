@@ -71,7 +71,7 @@ const Catalog = () => {
 <div className="catalog-content">
       <div className="filter-container">
         <h1 className="catalog-title">
-          Catálogo de produtos
+          Catálogo de Calzado
         </h1>
         <ProductFilters 
           name={name}

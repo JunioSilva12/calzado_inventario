@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { crearProducto, getProductByID, getProducts, updateProduct ,delateProduct } = require('../controllers/product');
+const { crearProducto, getProductByID, getProducts, updateProduct ,delateProduct ,delateImgProduct } = require('../controllers/product');
 //const { validatorGetProducts, validatorCreateProducts} = require('../validators/products');
 const authMiddleware = require('../middlewares/session')
 const checkRol = require('../middlewares/rol')
@@ -39,11 +39,12 @@ const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY
 // Ruta para subir archivos
 router.post('/image', upload.single('file'), async (req, res) => {
     try {
-       
+      const ext = req.file.originalname.split('.').pop()
+        const filename = `file-${Date.now()}.${ext}`
       console.log('body....',req.body)
       const { data, error } = await supabase.storage
         .from('productImages')
-        .upload(`public/${req.file.originalname}`, req.file.buffer);
+        .upload(`public/${filename}`, req.file.buffer);
       
       if (error) {
         console.log('el error',error);
@@ -58,7 +59,7 @@ router.post('/image', upload.single('file'), async (req, res) => {
         throw publicURLError;
       }
   
-      res.status(200).send({ message: 'Imagen subida correctamente' , uri: req.file.originalname });
+      res.status(200).send({ message: 'Imagen subida correctamente' , uri: filename });
     } catch (error) {
       console.error(error);
        (error.error =='Duplicate')?  res.status(200).json({ message: 'Imagen ya estaba subida' , uri: req.file.originalname })
@@ -78,6 +79,7 @@ router.delete(
     delateProduct
 )
 
+router.delete('/image/:filename',[authMiddleware], delateImgProduct);
 
 module.exports = router
 

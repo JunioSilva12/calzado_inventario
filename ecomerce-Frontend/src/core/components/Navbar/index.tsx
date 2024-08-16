@@ -14,7 +14,7 @@ const Navbar = () => {
   useEffect(() => {
     const currentUserData = getAccessTokenDecoded();
     const isLogged = isTokenValid();
-    console.log("la data..",isLogged);
+    //console.log("la data..",isLogged);
     if (isLogged) {
       setLogged(true);
     }
@@ -45,17 +45,38 @@ const Navbar = () => {
   }, [setDrawerActive]);
 
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleLogout = () => {
     //event.preventDefault();
     history('/auth/login');
+    
     logout();
+    setLogged(false);
   }
   
+  useEffect(() => {
+
+   
+    const token = getAccessTokenDecoded()
+    //console.log("ok",token)
+    if (token.name) {
+      
+
+      if (!(isTokenValid())) {
+        // El token ha expirado
+        handleLogout();
+      } 
+    }
+  }, [handleLogout,isLogged]);
+
+
+
+
   return (
     <nav ref={boxRef} className="bg-primary main-nav">
 
-      <Link to="/" className="nav-logo-text">
-        <h4>TIENDA DE CALZADO</h4>
+      <Link to="/products" className="nav-logo-text">
+        <h4>CALZADO CALIXSPORT</h4>
       </Link>
       <button
         className="menu-mobile-btn"
@@ -102,7 +123,7 @@ const Navbar = () => {
             drawerActive && (
               
                                  
-                 ( currentUser&& isLogged )&& (
+                 (  isLogged )&& (
                   <li>
                     <a 
                       href="#logout" 
@@ -123,7 +144,7 @@ const Navbar = () => {
           {
             drawerActive && (
               <>
-                {!(currentUser&& isLogged) && (
+                {!(isLogged) && (
                   <li>
                     <Link 
                       to="/auth/login" 
@@ -142,7 +163,7 @@ const Navbar = () => {
       </div>
 
       <div className="user-info-dnone text-right">
-        {(currentUser&& isLogged) && (
+        {(isLogged) && (
           <>
             {currentUser}
             <a
@@ -159,7 +180,7 @@ const Navbar = () => {
             </a>
           </>
         )}
-        {!(currentUser && isLogged) && (
+        {!(isLogged) && (
           <Link 
             to="/auth/login" 
             className="nav-link active" 

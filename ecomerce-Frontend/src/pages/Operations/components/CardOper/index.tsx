@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Transaction } from "../../../../core/types/Transaction";
 
 import './styles.scss';
@@ -25,8 +26,9 @@ const cardOper = ({  operation, onRemove }: Props) => {
     <div className="card-base border-radius-10 card-item">
       <div className="main-row">
       <div className="col-ini">
-          <h2 >Id Producto: {operation.productId}</h2>
-          
+      <Link to={`/products/${operation.productId}`} >
+        <h2 >Id: {operation.productId}</h2>
+      </Link>
           <h2 >Talla: {operation.SizeId}</h2>
         </div>
         <div className="col-name">
@@ -37,15 +39,15 @@ const cardOper = ({  operation, onRemove }: Props) => {
         </div>
         
         <div className="buttons-container">    
-            <div className="op-button">
+          
               <button
                 type="button"
-                className="btn btn-outline-primary btn-block border-radius-10"
+                className="btn btn-outline-secondary  border-radius-10 trash-btn"
                 onClick={() => onRemove(operation.ID)}
               >
-                EXCLUIR
+                <img  src='/src/core/assets/images/delete-icon.svg' alt="trash"></img>
               </button>
-            </div>
+              
             </div>
     
          

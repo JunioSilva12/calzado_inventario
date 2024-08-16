@@ -74,7 +74,7 @@ const List = () => {
     history('/admin/products/create');
   }
 
-  const onRemove = (productId: number) => {
+  const onRemove = (productId: number, productImgName: string) => {
     const confirm = window.confirm('Desea realmente excluir este produto?');
 
     if (confirm) {
@@ -85,6 +85,15 @@ const List = () => {
         })
         .catch(() => {
           toast.error('Error al remover o produto!')
+        })
+
+        makePrivateRequest({ url: `/product/image/${productImgName}`, method: 'DELETE' })
+        .then(() => {
+          toast.info('ProdutoImg removido exitosamente!')
+          getProducts();
+        })
+        .catch(() => {
+          toast.error('Error al remover Imagen!')
         })
     }
 

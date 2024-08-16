@@ -10,7 +10,7 @@ import { Size } from '../../../../core/types/size';
 import {  useParams } from 'react-router-dom';
 import StateManagedSelect from 'react-select';
 import { Inventory } from '../../../../core/types/Product';
-
+import cancelIcon from '/src/core/assets/images/cancel-icon.svg';
 //import { Link } from 'react-router-dom';
 
 type Props = {
@@ -135,20 +135,18 @@ const InventoryForm = ({ productSizes , reload, setCreating }: Props) => {
                 </div>
                <div className="buttons-container-inv">
                 
-         
                  <button
                    type="button"
-                   className="btn  btn-block border-radius-10  btn-outline-secondary m-2"
-                  
+                   className=" btn  btn-outline-secondary border-radius-10 form-btn"                  
                    onClick={() =>  setCreating(false)}
                  >
-                   Cancelar
-                 </button>                
-        <button className="btn btn-primary border-radius-10">
-          Guardar
+                   <img  src={cancelIcon} alt="no"></img>                     
+                 </button>  
+                          
+        <button  type="submit" className="btn btn-outline-primary border-radius-10 form-btn">
+        <img  src='/src/core/assets/images/accept-icon.svg' alt="ok"></img>   
         </button>
-         
-               </div>
+        </div>
              </div>
              </form>
 

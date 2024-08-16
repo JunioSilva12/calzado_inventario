@@ -1,8 +1,20 @@
 .product-card-cata {
   padding: 10px;
-  margin-bottom: 20px;
+ 
 
   border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  z-index: 100;
+
+}
+
+.product-card-form {
+  margin-top:-10px ;
+  padding: 10px 0;
+  border-radius: 0px 0px 10px 10px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -10,12 +22,83 @@
 
 }
 
+.trash-btn {
+
+  font-size: 10px;
+  padding: 0;
+  margin-right: 10px;
+  display: block;
+  border: none;
+  background: transparent;
+  max-width: 20px;
+  outline: none;
+ 
+  p{
+   
+    display: flex;
+    margin: 0;
+    align-items: center;
+    align-self: center;
+    text-align: center;
+  }
+}
+.op-btn {
+  font-family: Georgia;
+  font-weight: bold;
+  color: #4caf99;
+  font-size: 14px;
+  padding: 0;
+  margin-right: 10px;
+  display: block;
+  border: none;
+  background: transparent;
+  min-width: max-content;
+  outline: none;
+ 
+  p{
+   
+    display: flex;
+    margin: 0;
+    align-items: center;
+    align-self: center;
+    text-align: center;
+  }
+}
+
 .bg-dark{
   background-color: rgba(0, 0, 0, 0.9);
   color: aliceblue;
 }
 
+.card-inv{
+  padding: 10px;
+ 
 
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+
+
+}
+
+
+.buttons-container-op{
+  width: 40%;
+  margin: 10px;
+ margin-left: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.card-form{
+  width: 100%;
+
+  display: block;
+}
 
 .buttons-container{
   margin: 10px;
@@ -72,7 +155,7 @@
     flex-direction: row-reverse;
     align-items: center;
     justify-content: space-around;
-    margin: 10px 0;
+    margin: 10px 15px;
     padding: 2px;
   }
   .btn-product{
@@ -81,6 +164,15 @@
   }
   .border-img {
     border-bottom: 1px solid #cecece;
+  }
+  .trash-btn {
+    font-family: Georgia;
+    font-weight: bold;
+    color: #4caf99;
+    font-size: 8px;
+    text-align: center;
+   margin-right: 30px;
+   
   }
 
 

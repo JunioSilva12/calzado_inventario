@@ -42,7 +42,7 @@ const OperationsFilters = ({
       makeRequest({ url: '/provider' })
       .then((response: { data: { content: SetStateAction<Provider[]>; }; }) => {
         setProviders(response.data.content)
-        console.log('provs',response.data.content)
+       // console.log('provs',response.data.content)
       })
       .finally(() => setIsLoadingProvider(false));
      

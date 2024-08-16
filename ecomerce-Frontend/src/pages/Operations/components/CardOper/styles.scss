@@ -1,3 +1,13 @@
+.trash-btn {
+  padding: 0;
+  margin-right: 0px;
+  display: block;
+  border: none;
+  background: transparent;
+  min-width: 30px;
+  outline: none;
+}
+
 .main-row {
   display: flex;
   flex-direction: row;
@@ -8,15 +18,19 @@
     font-weight: bold;
    display: flex;
    align-items: center;
+   width: 100%;
+   flex-direction: row;
   }
   .col-ini {
-    width: 100%;
+    min-width:30% ;
     font-family: 'Lucida Sans';
     font-style: normal;
+    padding-right: 20px;
 
     h2{
       font-family: 'Lucida Sans';
       font-style: normal;
+      font-size: 14px;
 
     }
     
@@ -84,7 +98,7 @@
 @media (max-width: 576px) {
   .main-row {
     .col-name {
-      width: 40%;
+      width: 100%;
       h2{
         font-size: 15px;
       }
@@ -95,6 +109,6 @@
 
   .buttons-container{
     font-size: 10px ;
-    width: 30px;
+    width: 100%;
   }
 }

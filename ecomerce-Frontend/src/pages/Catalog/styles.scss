@@ -44,7 +44,11 @@
   .catalog-title{
     margin-bottom: 20px;
   }
-
+  .catalog-container{
+  
+    margin-top: 0;
+     padding: 0 10px 
+   }
  .catalog-products{
     grid-template-columns: repeat(auto-fill, 200px);
     grid-gap: 33px 10px;

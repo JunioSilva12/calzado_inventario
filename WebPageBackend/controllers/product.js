@@ -3,7 +3,7 @@ const { matchedData } = require('express-validator');
 /*const { verifyAdminToken } = require('../utils/handleJwt');*/
 const { handleHttpError } = require('../utils/handleError');
 const {prisma} = require('../config/posgresql');
-
+const { createClient } = require('@supabase/supabase-js');
 /*
 const getProductxCategory = async (id) => {
     try {
@@ -319,9 +319,25 @@ const updateProduct = async (req, res) => {
                 }
          });
 
-         await prisma.inventory.deleteMany({where:{productId :parseInt(req.params.id , 10) }});
+         //await prisma.inventory.upsert({where:{productId :parseInt(req.params.id , 10) }});
          productNew.inventories.forEach(async inv => {
-
+          await prisma.inventory.upsert({
+            where: {
+              SizeId_productId: {
+                productId: parseInt(req.params.id, 10),
+                SizeId: inv.size,
+              },
+            },
+            create: {
+              productId :parseInt(req.params.id , 10)  ,
+                 SizeId:inv.size,
+                   stock:parseInt(inv.stock, 10)
+              // Aquí deberías incluir las otras propiedades necesarias para crear el registro, como `SizeId` y `stock`.
+            },
+            update: {
+              stock:parseInt(inv.stock, 10)
+            },
+          });
     try {
                
                 await prisma.inventory.create({data:{productId :parseInt(req.params.id , 10)  , SizeId:inv.size,  stock:parseInt(inv.stock, 10)}});
@@ -367,6 +383,9 @@ const delateProduct =  async (req, res) => {
 
         await prisma.product.delete({  where: { id: product.id },});
         res.json({ message: 'Producto eliminado correctamente' });
+
+
+       
     } catch (error) {
         res.status(500).json({ message: 'Error al eliminar el producto' });
         console.log('delete/product:',error)
@@ -374,13 +393,33 @@ const delateProduct =  async (req, res) => {
 
 }
 
+const delateImgProduct = async (req, res) => {
+  const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
 
+  try {
+    const { filename } = req.params;
+
+    const { data, error } = await supabase.storage
+      .from('productImages')
+      .remove([`public/${filename}`]);
+
+    if (error) {
+      throw error;
+    }
+
+    res.status(200).send({ message: 'Imagen eliminada correctamente' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ error: error.message });
+  }
+}
 
 module.exports = {
      crearProducto ,
      updateProduct,
      getProductByID,
      getProducts,
-     delateProduct
+     delateProduct,
+     delateImgProduct
      
 }

@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 type Props = {
   product: Product;
   key:number;
-  onRemove: (productId: number) => void;
+  onRemove: (productId: number ,productImgName: string ) => void;
 }
 
 const Card = ({ product, key, onRemove }: Props) => {
@@ -58,7 +58,7 @@ const Card = ({ product, key, onRemove }: Props) => {
           type="button"
           className="btn  btn-block border-radius-10 btn-product btn-outline-secondary"
          
-          onClick={() => onRemove(product.id)}
+          onClick={() => onRemove(product.id,product.imgUrl)}
         >
           EXCLUIR
         </button>

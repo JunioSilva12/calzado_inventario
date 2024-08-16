@@ -47,8 +47,11 @@ const getProduct = () => {
 }
   const onRemove = (inventory: Inventory) => {
     const confirm = window.confirm('SEFURO DESAS QUITAR ESTA TALLA DEL INVENTARIO?');
-
+   
     if (confirm) {
+
+      const confirm2 = window.confirm('REALMNETE SEGURO DE QUITAR ESTA TALLA DEL INVENTARIO?');
+      if (confirm2) {
       makePrivateRequest({ url: `/inventory/${productId}`, method: 'DELETE', data:inventory})
         .then(() => {
           toast.info('TALLA QUITADA EXITOSAMENTE!')
@@ -57,6 +60,7 @@ const getProduct = () => {
         .catch(() => {
           toast.error('Error al remover talla!')
         })
+      }
     }
 
   }
@@ -68,7 +72,7 @@ const getProduct = () => {
 
   return (
     <div className="product-details-container">
-      <div className="card-base border-radius-20 product-details">
+      <div className="card-base  product-details">
         <Link to="/products" className="product-details-goback">
           <div className="icon-goback">
            <img src={ArrowIcon} />
@@ -115,7 +119,7 @@ const getProduct = () => {
 
                 {isLoading ? <CardLoader /> : (
           product?.inventories?.map(inv => (
-            (inv.stock !== 0) && ( <InventoryCard inventory={inv} onRemove={onRemove} key={inv.size} />)
+            (inv.stock !== 0) && ( <InventoryCard reload={getProduct} productId={productId} inventory={inv} onRemove={onRemove} key={inv.size} />)
           ))
         )}
 

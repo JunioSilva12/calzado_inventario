@@ -1,6 +1,7 @@
 
 
 //import ProductPrice from '../../../../core/components/ProductPrice';
+import ProductSizes from '../../../../core/components/ProductSizes';
 import { Product } from '../../../../core/types/Product';
 //import ProductImage from '../../../../core/assets/images/product.svg'
 import './styles.scss';
@@ -48,6 +49,20 @@ const ProductCard = ({ product }: Props) =>(
       <h6 className="product-name">
         {product.name}
       </h6>
+      
+      {(product.inventories)? (
+//          <p>SI hay tallas Registradas</p>
+           <ProductSizes sizes={product.inventories} key={product.id} /> 
+        ):(
+          <p>No hay tallas Registradas</p>
+        )}
+        <div>
+          {product?.categories?.map(category => (
+            <span key={category.id} className="badge rounded-pill bg-dark mr-2">
+              {category.name}
+            </span>
+          ))}
+    </div>
     </div>
    {/* <ProductPrice price={product.price}/> */}
   </div>
