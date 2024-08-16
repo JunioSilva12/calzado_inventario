@@ -4,7 +4,8 @@ import { Product } from '../../../../../core/types/Product';
 import './styles.scss';
 import ProductSizes from '../../../../../core/components/ProductSizes';
 import { Link } from 'react-router-dom';
-
+import deleteIcon from '/src/core/assets/images/delete-icon.svg';
+import editIcon from '/src/core/assets/images/edit-icon.svg';
 type Props = {
   product: Product;
   key:number;
@@ -49,18 +50,18 @@ const Card = ({ product, key, onRemove }: Props) => {
        <Link
           to={`/admin/products/${product.id}`}
           type="button"
-          className="btn btn-outline-primary btn-block border-radius-10 btn-product"
+          className="btn btn-outline-primary btn-block border-radius-10 btn-product  trash-btn"
         >
-          EDITAR
+            <img  src={editIcon} alt="editar"></img>
         </Link> 
 
         <button
           type="button"
-          className="btn  btn-block border-radius-10 btn-product btn-outline-secondary"
+          className="btn  btn-block border-radius-10 btn-product btn-outline-secondary  trash-btn"
          
           onClick={() => onRemove(product.id,product.imgUrl)}
         >
-          EXCLUIR
+          <img  src={deleteIcon} alt="trash"></img>
         </button>
 
       </div>

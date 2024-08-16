@@ -43,6 +43,7 @@ const List = () => {
    const clearFilters = () => {
      setActivePage(0);
   //   setCategory(undefined);
+  setDate('');
      setName('');
      setProvider(undefined);
 

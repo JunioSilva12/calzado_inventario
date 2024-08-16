@@ -16,7 +16,7 @@ const ListCategory = () => {
   const history = useNavigate();
 console.log("resultado",categoryResponse);
   const [name, setName] = useState('');
-  const [direction, setDirection] = useState('DESC');
+  const [direction, setDirection] = useState('desc');
   const [optionValue, setOptionValue] = useState(-1); 
 
   const handleChangeName = (name: string) => {
@@ -28,13 +28,13 @@ console.log("resultado",categoryResponse);
   const handleChangeDirection = (direction: string) => {
     setDirection(direction);
     setActivePage(0);
-    setOptionValue(direction === 'ASC' ? 1 : 0);
+    setOptionValue(direction === 'asc' ? 1 : 0);
     
   }
 
   const clearFilters = () => {
     setActivePage(0);
-    setDirection('DESC');
+    setDirection('desc');
     setName('');
     setOptionValue(-1);
   }

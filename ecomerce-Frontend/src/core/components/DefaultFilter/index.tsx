@@ -13,8 +13,8 @@ type Props = {
 
 
 const options = [
-  { value: 'DESC', label: 'Filtrar por Recentes' },
-  { value: 'ASC', label: 'Filtrar por Antigos' },
+  { value: 'desc', label: 'Filtrar por A-Z' },
+  { value: 'asc', label: 'Filtrar por Z-A' },
 
 ];
 

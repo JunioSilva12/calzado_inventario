@@ -7,7 +7,7 @@ const {loadFileImage , uploadImage} =  require('../utils/handleUploadImage');
 const router = Router()
 const multer = require('multer');
 const { createClient } = require('@supabase/supabase-js');
-
+const sharp = require('sharp');
 router.get('/', getProducts)
 router.get(
     '/:id',
@@ -39,12 +39,19 @@ const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY
 // Ruta para subir archivos
 router.post('/image', upload.single('file'), async (req, res) => {
     try {
+
+      const compressedBuffer = await sharp(req.file.buffer)
+      .resize({ width: 200 }) // Redimensiona la imagen (opcional)
+      .jpeg({ quality: 80 })  // Ajusta la calidad (puedes modificarla según necesites)
+      .toBuffer();
+
+
       const ext = req.file.originalname.split('.').pop()
         const filename = `file-${Date.now()}.${ext}`
       console.log('body....',req.body)
       const { data, error } = await supabase.storage
         .from('productImages')
-        .upload(`public/${filename}`, req.file.buffer);
+        .upload(`public/${filename}`,compressedBuffer);
       
       if (error) {
         console.log('el error',error);
@@ -53,7 +60,7 @@ router.post('/image', upload.single('file'), async (req, res) => {
   
       const { publicURL, error: publicURLError } = supabase.storage
         .from('productImages')
-        .getPublicUrl(`public/${req.file.originalname}`);
+        .getPublicUrl(`public/${filename}`);
   
       if (publicURLError) {
         throw publicURLError;

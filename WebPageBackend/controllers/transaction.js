@@ -13,6 +13,7 @@ const getTransactions = async (req, res)  => {
     console.log("filters...",query);
     
     const where = {};
+    const include = {};
 
     // if (!(query.name == undefined || query.name == "")) {
     //   where.name =  {
@@ -27,13 +28,37 @@ const getTransactions = async (req, res)  => {
     if (!(query.type == undefined || query.type == "")) {
         where.Type =query.type      
       }
+      const prod = {}
+      if (!(query.provider == undefined || query.provider == "")){prod.idProvider =parseInt(query.provider,10)}
+      if (!(query.name == undefined || query.name == "")){prod.name={ 
+        contains: query.name, // El texto que quieres buscar en el nombre
+        mode: 'insensitive',}}
+
+      if (!(query.provider == undefined || query.provider == "")  || !(query.name == undefined || query.name == "") ) {
+        where.Inventario =  {
+            product: prod
+          // Opcional: hace que la búsqueda sea insensible a mayúsculas y minúsculas
+        };
+   
+
+        include.Inventario={
+            
+                include: {
+                  product: true,
+                },
+              }
+        } 
+      
+
+      
+
     if (!(query.date == undefined || query.date == "")) {
         where.date = new Date(query.date )     
      }
 
   
     try {
-        const sizes = await prisma.transactions.findMany({ where:where});
+        const sizes = await prisma.transactions.findMany({ where:where , include:include});
       //  console.log(sizes)
        const  sizeResponse ={
             content: sizes,

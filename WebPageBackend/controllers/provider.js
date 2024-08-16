@@ -7,17 +7,38 @@ const {prisma} = require('../config/posgresql');
 
 // Ruta para obtener todos los productos
 const getProviders = async (req, res)  => {
+    const query = req.query;
+    console.log("filters...",query);
+    
+    const where = {};
+    const orderBy = {};
+
+    if (!(query.name == undefined || query.name == "")) {
+      where.name =  {
+        contains: query.name, // El texto que quieres buscar en el nombre
+        mode: 'insensitive', // Opcional: hace que la búsqueda sea insensible a mayúsculas y minúsculas
+      };
+    }
+    if (!(query.direction == undefined || query.direction == "")) {
+        orderBy.name = query.direction
+      }
+   
+    
+
+
+
     try {
-        const sizes = await prisma.provider.findMany();
+        const providers = await prisma.provider.findMany({where:where,orderBy:orderBy});
    //     console.log(categories)
-       const  sizeResponse ={
-            content: sizes,
-             totalPages: (sizes.length % 10 == 0)  ?  Math.floor(sizes.length/20)  :   Math.floor(sizes.length / 20) +1
+       const  providerResponse ={
+            content: providers,
+             totalPages: (providers.length % 10 == 0)  ?  Math.floor(providers.length/20)  :   Math.floor(providers.length / 20) +1
             
           }
-          res.json(sizeResponse);
+          res.json(providerResponse);
     } catch (error) {
-        res.status(500).json({ message: 'Error al obtener las tallas' });
+        console.log(error)
+        res.status(500).json({ message: 'Error al obtener los proveedores' });
     }
 };
 

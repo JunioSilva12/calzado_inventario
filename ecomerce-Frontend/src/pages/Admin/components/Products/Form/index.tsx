@@ -66,7 +66,12 @@ const Form = () => {
           setValue('sizes', response.data.inventories.map((inv)=>({id:inv.size,size:inv.size.toString()})));
 
           response.data.inventories.map((inv)=>{
-            setValue(`inventories.${inv.size}.stock`, inv.stock);  
+            if (inv.stock>0) {
+              setValue(`inventories.${inv.size}.stock`, inv.stock); 
+            }
+
+           
+
 })
 
 

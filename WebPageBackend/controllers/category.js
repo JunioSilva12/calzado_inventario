@@ -7,8 +7,26 @@ const {prisma} = require('../config/posgresql');
 
 // Ruta para obtener todos los productos
 const getCategories = async (req, res)  => {
+    const query = req.query;
+    console.log("filters...",query);
+    
+    const where = {};
+    const orderBy = {};
+
+    if (!(query.name == undefined || query.name == "")) {
+      where.name =  {
+        contains: query.name, // El texto que quieres buscar en el nombre
+        mode: 'insensitive', // Opcional: hace que la búsqueda sea insensible a mayúsculas y minúsculas
+      };
+    }
+    if (!(query.direction == undefined || query.direction == "")) {
+        orderBy.name = query.direction
+      }
+   
+    
+
     try {
-        const categories = await prisma.category.findMany();
+        const categories = await prisma.category.findMany({where:where,orderBy:orderBy});
    //     console.log(categories)
        const  categoryResponse ={
             content: categories,
