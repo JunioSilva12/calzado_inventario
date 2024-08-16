@@ -8,6 +8,10 @@ import { isTokenValid } from '../../../../core/utils/auth';
 //import trashIcon from '/src/core/assets/images/delete-icon.svg';
 //import { Link } from 'react-router-dom';
 import cancelIcon from '/src/core/assets/images/cancel-icon.svg';
+import acceptIcon from '/src/core/assets/images/accept-icon.svg';
+import masIcon from '/src/core/assets/images/mas-Icon.svg';
+import menosIcon from '/src/core/assets/images/menos-icon.svg';
+import deleteIcon from '/src/core/assets/images/delete-icon.svg';
 import { useForm } from 'react-hook-form';
 import { makePrivateRequest } from '../../../../core/utils/request';
 import { toast } from 'react-toastify';
@@ -116,13 +120,13 @@ const InventoryCard = ({ productId ,inventory, onRemove,reload }: Props) => {
           type="button"
           className="btn border-radius-10  btn-outline-secondary op-btn "      
           onClick={() => {setOp(true); setTypeOp(TransactionType.Entry)}}
-        ><p>ENTRADA</p><img  src='/src/core/assets/images/mas-icon.svg' alt="trash"></img>   
+        ><p>ENTRADA</p><img   src={masIcon}  alt="entrada"></img>   
         </button>
         <button
           type="button"
           className="btn border-radius-10  btn-outline-secondary op-btn"      
           onClick={() => {setOp(true);setTypeOp(TransactionType.Exit)}}
-        ><p>SALIDA</p><img  src='/src/core/assets/images/menos-icon.svg' alt="trash"></img>   
+        ><p>SALIDA</p><img  src={menosIcon} alt="salida"></img>   
         </button>
 
         </div> )}
@@ -135,7 +139,7 @@ const InventoryCard = ({ productId ,inventory, onRemove,reload }: Props) => {
           className="btn border-radius-10 btn-product btn-outline-secondary trash-btn "      
           onClick={() => onRemove(inventory)}
         >
-                <img  src='/src/core/assets/images/delete-icon.svg' alt="trash"></img>   
+                <img  src={deleteIcon} alt="trash"></img>   
         </button>)}
       
 
@@ -179,7 +183,7 @@ const InventoryCard = ({ productId ,inventory, onRemove,reload }: Props) => {
                 </button>  
                          
        <button  type="submit" className="btn btn-outline-primary border-radius-10 form-btn">
-       <img  src='/src/core/assets/images/accept-icon.svg' alt="ok"></img>   
+       <img  src={acceptIcon} alt="ok"></img>   
        </button>
        </div>
     

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Transaction } from "../../../../core/types/Transaction";
-
+import deleteIcon from '/src/core/assets/images/delete-icon.svg';
 import './styles.scss';
 
 type Props = {
@@ -45,7 +45,7 @@ const cardOper = ({  operation, onRemove }: Props) => {
                 className="btn btn-outline-secondary  border-radius-10 trash-btn"
                 onClick={() => onRemove(operation.ID)}
               >
-                <img  src='/src/core/assets/images/delete-icon.svg' alt="trash"></img>
+                <img  src={deleteIcon} alt="trash"></img>
               </button>
               
             </div>
