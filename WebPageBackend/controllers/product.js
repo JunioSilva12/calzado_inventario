@@ -460,7 +460,7 @@ const putImgProduct = async (req, res) => {
 
     const compressedBuffer = await sharp(req.file.buffer)
     .resize({ width: 200 }) // Redimensiona la imagen (opcional)
-    .jpeg({ quality: 80 })  // Ajusta la calidad (puedes modificarla según necesites)
+    .jpeg({ quality: 50 })  // Ajusta la calidad (puedes modificarla según necesites)
     .toBuffer();
 
 
