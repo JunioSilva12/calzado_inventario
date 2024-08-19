@@ -497,7 +497,7 @@ const putImgProduct = async (req, res) => {
         console.error('Error eliminando el archivo temporal:', error.message);
       }
     }
-    const delay = 20 * 60 * 1000; // 10 minutos en milisegundos
+    const delay = 10 * 60 * 1000; // 10 minutos en milisegundos
     setTimeout(async () => {
       const product = await prisma.product.findFirst({ 
         where:{ imgUrl:filename}});
