@@ -36,7 +36,7 @@ const FormProv= () => {
         })
     }
 
-  }, [providerId, isEditing, setValue])
+  }, [providerId, isEditing,isDisabled, setValue])
 
   const onSubmit = (data: FormProvState) => {
     makePrivateRequest({
@@ -45,7 +45,7 @@ const FormProv= () => {
       data
     })
       .then(() => {
-        toast.info('proceedor guardado con exito!')
+        toast.info('Proveedor guardado con exito!')
         history('/admin/providers');
       })
       .catch(() => {

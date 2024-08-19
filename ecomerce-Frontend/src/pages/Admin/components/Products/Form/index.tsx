@@ -131,11 +131,11 @@ if (inv) {
       data:payload
     })
       .then(() => {
-        toast.info('Produto guardado con exito!')
+        toast.info('Producto guardado con exito!')
         history('/admin/products');
       })
       .catch(() => {
-        toast.error('Error al guardar produto!')
+        toast.error('Error al guardar producto!')
       })
   }
 

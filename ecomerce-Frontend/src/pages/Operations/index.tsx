@@ -4,7 +4,6 @@ import Navbar from './components/Navbar';
 //import PrivateRoutes from '../../core/components/Routes/PrivateRoutes';
 import './styles.scss';
 //import Categories from './components/Categories';
-import Users from './components/Users';
 import Inputs from './components/Inputs';
 import Outputs from './components/Outputs';
 
@@ -18,7 +17,6 @@ const Operations = () =>(
       
         <Route path="/inputs/*" element={<Inputs />} />
         <Route path="/outputs/*" element={<Outputs />} />
-        <Route path="/users/*" element={<Users />} />
 
       
 

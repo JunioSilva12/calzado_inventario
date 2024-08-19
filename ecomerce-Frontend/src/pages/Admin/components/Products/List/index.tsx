@@ -80,11 +80,11 @@ const List = () => {
     if (confirm) {
       makePrivateRequest({ url: `/product/${productId}`, method: 'DELETE' })
         .then(() => {
-          toast.info('Produto removido exitosamente!')
+          toast.info('Producto removido exitosamente!')
           getProducts();
         })
         .catch(() => {
-          toast.error('Error al remover o produto!')
+          toast.error('Error al remover o producto!')
         })
 
         makePrivateRequest({ url: `/product/image/${productImgName}`, method: 'DELETE' })

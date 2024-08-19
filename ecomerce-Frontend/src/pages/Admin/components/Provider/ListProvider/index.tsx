@@ -46,7 +46,7 @@ console.log("resultado",providerResponse);
       makePrivateRequest({ url: `/provider/${sizeId}`, method: 'DELETE' })
         .then(() => {
           getCategories();
-          toast.info('proveedor removida con exito')
+          toast.info('proveedor removido con exito')
         })
         .catch(() => {
           toast.error('error al remover proveedor')

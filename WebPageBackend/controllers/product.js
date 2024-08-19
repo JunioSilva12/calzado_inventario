@@ -4,49 +4,8 @@ const { matchedData } = require('express-validator');
 const { handleHttpError } = require('../utils/handleError');
 const {prisma} = require('../config/posgresql');
 const { createClient } = require('@supabase/supabase-js');
-/*
-const getProductxCategory = async (id) => {
-    try {
-        const categories = await productXcategoryModel.findAll({where:{ productId: id } }); // Busca la categoría por su IDproducto
-       // console.log(".cc.",categories);
-        
-        //return categories
-        
-        console.log(categories);
-        const categoriesID = categories.map((categorie) => ({
-            id:categorie.dataValues.categoryId
-            //name: categoryModel.findAll({where:{ id: categorie.categoryId }  })
-        
-          }))
-         // console.log(".dd.",categoriesID);
-         const categoriesNames=  await categoriesID.map( (cat) => (
-            console.log(cat.id),
-            
-                
-             cat.id
-        
-          ))
-         //  console.log(".names.",categoriesNames);
-           names=[]
-            categoriesNames.forEach( async id => {
-            console.log("es:",id)
-            cat=await categoryModel.findByPk(id) 
-           names.push( {id :cat.dataValues.id,name :cat.dataValues.name } )
-           });
-          // console.log("est..",  await categoryModel.findByPk(101))
-           console.log("n..",names)
-
-        
-        
-       
-        return names; // Devuelve el nombre de la categoría
-        //return res.send({ data, user })
-      } catch (error) {
-        console.error('Error al buscar la categoría:', error.message);
-        return ['Error al buscar la categoría'];
-      }
-  };*/
-
+const { Storage } = require('megajs');
+const sharp = require('sharp');
 
 
 // Ruta para obtener todos los productos
@@ -399,7 +358,7 @@ const delateImgProduct = async (req, res) => {
   try {
     const { filename } = req.params;
 
-    const { data, error } = await supabase.storage
+    const { error } = await supabase.storage
       .from('productImages')
       .remove([`public/${filename}`]);
 
@@ -414,12 +373,167 @@ const delateImgProduct = async (req, res) => {
   }
 }
 
+
+const setImgProduct = async (req, res) => {
+
+  const storage = new Storage({
+    email: process.env.MEGA_EMAIL,
+    password: process.env.MEGA_PASSWORD
+  });
+  
+  if (!req.file) {
+    return res.status(400).send('No se ha subido ningún archivo.');
+  }
+
+      const ext = req.file.originalname.split('.').pop()
+        const filename = `file-${Date.now()}.${ext}`
+
+  try {
+    // Comprimir la imagen utilizando Sharp
+    const compressedBuffer = await sharp(req.file.buffer)
+      .resize({ width: 200 }) // Redimensiona la imagen (opcional)
+      .jpeg({ quality: 80 })  // Ajusta la calidad (puedes modificarla según necesites)
+      .toBuffer();
+
+    // Esperar a que el almacenamiento de Mega esté listo
+    storage.on('ready', () => {
+      console.log('Conectado a MEGA!');
+
+  // Especificar la carpeta donde quieres subir el archivo
+  const folderName = 'product_images';
+
+  // Buscar o crear la carpeta
+  let folder = storage.root.children.find(f => f.name === folderName);
+  if (!folder) {
+    folder = storage.root.upload({ name: folderName });
+    folder.on('complete', () => {
+      console.log(`Carpeta '${folderName}' creada exitosamente.`);
+      uploadToMega(folder);
+    });
+  } else {
+    uploadToMega(folder);
+  }
+
+
+
+
+      // Sube el archivo comprimido a Mega
+      function uploadToMega(folder) {
+        const upload = folder.upload({
+          name: filename, // Nombre del archivo en MEGA
+          size: compressedBuffer.length // Tamaño del archivo comprimido
+        });
+
+        upload.end(compressedBuffer);
+
+        upload.on('complete', (file) => {
+         // const fileURI = file.link;
+         console.log(`el archico ${file}`)
+         const fileURI = `https://mega.nz/file/${file.id}#${file.key}`;
+         console.log('la uri....',fileURI)
+          console.log(`Archivo comprimido subido correctamente a Mega en la carpeta ${folderName}: ${file.name}`);
+          res.send({
+            message: 'Archivo subido exitosamente a Mega',
+            fileName: file.name,
+            fileURI:  fileURI
+          });
+        });
+
+        upload.on('error', (err) => {
+          console.error('Error subiendo a Mega:', err);
+          res.status(500).send('Error subiendo el archivo a Mega.');
+        });
+      }
+    });
+  } catch (err) {
+    console.error('Error comprimiendo la imagen:', err);
+    res.status(500).send('Error procesando la imagen.');
+  }
+}
+
+const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
+
+const putImgProduct = async (req, res) => {
+
+
+  try {
+
+    const compressedBuffer = await sharp(req.file.buffer)
+    .resize({ width: 200 }) // Redimensiona la imagen (opcional)
+    .jpeg({ quality: 80 })  // Ajusta la calidad (puedes modificarla según necesites)
+    .toBuffer();
+
+
+    const ext = req.file.originalname.split('.').pop()
+      const filename = `file-${Date.now()}.${ext}`
+    console.log('body....',req.body)
+    const { data, error } = await supabase.storage
+      .from('productImages')
+      .upload(`public/${filename}`,compressedBuffer);
+    
+    if (error) {
+      console.log('el error',error);
+      throw error;
+    }
+
+    const { publicURL, error: publicURLError } = supabase.storage
+      .from('productImages')
+      .getPublicUrl(`public/${filename}`);
+
+    if (publicURLError) {
+      throw publicURLError;
+    }
+
+    async function deleteTemporaryFile(fileName) {
+      try {
+        const { error } = await supabase.storage
+      .from('productImages')
+      .remove([`public/${fileName}`]);
+    
+        if (error) throw error;
+    
+        console.log('Archivo temporal eliminado exitosamente:', fileName);
+      } catch (error) {
+        console.error('Error eliminando el archivo temporal:', error.message);
+      }
+    }
+    const delay = 20 * 60 * 1000; // 10 minutos en milisegundos
+    setTimeout(async () => {
+      const product = await prisma.product.findFirst({ 
+        where:{ imgUrl:filename}});
+     if (!product) {
+      console.log('Iniciando limpieza de imagenes temporales...');
+      await deleteTemporaryFile(filename);
+      console.log('Limpieza completada.');
+     }
+     console.log('Limpieza completada.');
+
+
+    }, delay);
+
+
+    res.status(200).send({ message: 'Imagen subida correctamente' , uri: filename });
+  } catch (error) {
+    console.error(error);
+     (error.error =='Duplicate')?  res.status(200).json({ message: 'Imagen ya estaba subida' , uri: req.file.originalname })
+     : res.status(500).send({ error: error.message });
+  }
+
+
+  // Función para eliminar el archivo temporal
+
+
+ 
+}
+
 module.exports = {
+  setImgProduct,
      crearProducto ,
      updateProduct,
      getProductByID,
      getProducts,
      delateProduct,
-     delateImgProduct
+     delateImgProduct,
+     putImgProduct
      
 }

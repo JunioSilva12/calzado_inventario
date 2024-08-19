@@ -43,7 +43,7 @@ const FormSize= () => {
         history('/admin/sizes');
       })
       .catch(() => {
-        toast.error('Error al guardar categoria!')
+        toast.error('Error al guardar talla!')
       })
   }
 
