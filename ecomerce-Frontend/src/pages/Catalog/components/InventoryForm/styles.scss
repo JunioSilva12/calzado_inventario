@@ -1,4 +1,4 @@
-.product-card-cata {
+.product-form-cata {
   padding: 10px;
   
 
@@ -7,7 +7,7 @@
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
-
+ 
 }
 
 .form-btn {
@@ -38,12 +38,15 @@
   justify-content: space-around;
 }
 
-.card-content{
 
+
+.card-content{
+  z-index: 200;
   align-items: flex-start;
   justify-content: center;
   flex: 1;
-  padding-left: 20px 10px;
+ 
+ 
 }
 
 .product-card-stock {
@@ -67,13 +70,13 @@
     font-size: 12px;
    
   }
-  .product-card-cata{
+  .product-form-cata{
     display: flex;
     flex-direction: row;
     font-size: 16px;
     padding:  0;
   }
-  .card-content{
+  .card-content-form{
     width: 100%;
     
     padding: 10px;

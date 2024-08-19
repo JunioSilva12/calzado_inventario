@@ -65,7 +65,7 @@ const OperationsFilters = ({
 
 
       </div>
-      <div className="input-search">
+      <div className="input-date">
       <input
           type="date"
           value={date}
