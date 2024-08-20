@@ -486,7 +486,15 @@ const putImgProduct = async (req, res) => {
 
     
     const delay = 5 * 60 * 1000; // 5 minutos en milisegundos
+    let remainingTime = delay/1000;
+
+
+    const countdownInterval = setInterval(() => {
+      remainingTime -= 10;
+      console.log(`Faltan ${remainingTime} segundos para verificar o eliminar la imagen.`);
+  }, 10 * 1000); 
     setTimeout(async () => {
+      clearInterval(countdownInterval); // Detener la cuenta regresiva
       const product = await prisma.product.findFirst({ 
         where:{ imgUrl:filename}});
         console.log('el producto es:')
