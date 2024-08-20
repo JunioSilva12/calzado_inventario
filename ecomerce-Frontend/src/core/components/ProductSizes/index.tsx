@@ -16,9 +16,12 @@ const ProductSizes = ({sizes}:Props) =>{
       Tallas: 
 
           {sizes.map( size => (
+            <div>
             <span  className="badge rounded-pill bg-primary mx-1">
-              {size.size}
+              {size.size}             
             </span>
+             {size.stock} unidades!
+             </div>
           ))}
 
         </div>)

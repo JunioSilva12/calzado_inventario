@@ -13,6 +13,7 @@ export type TransactionResponse ={
   export type Transaction = {
     ID: number;
     productId: number;
+    nameProduct:string;
     SizeId: number;
      // Puedes ajustar el tipo según tu modelo
     date: string;

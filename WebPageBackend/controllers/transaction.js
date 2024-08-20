@@ -40,15 +40,19 @@ const getTransactions = async (req, res)  => {
           // Opcional: hace que la búsqueda sea insensible a mayúsculas y minúsculas
         };
    
-
+} 
         include.Inventario={
             
                 include: {
-                  product: true,
+                  product: {
+                    select: {
+                      name: true
+                    }
+                  },
                 },
               }
-        } 
-      
+        
+        
 
       
 
@@ -58,11 +62,17 @@ const getTransactions = async (req, res)  => {
 
   
     try {
-        const sizes = await prisma.transactions.findMany({ where:where , include:include});
-      //  console.log(sizes)
+        const ops = await prisma.transactions.findMany({ where:where , include:include});
+        console.log(ops)
+        const nuevaOps = ops.map(item => {
+          return {
+            ...item,
+            nameProduct: item.Inventario.product.name  // Agrega la nueva propiedad
+          };
+        });
        const  sizeResponse ={
-            content: sizes,
-             totalPages: (sizes.length % 10 == 0)  ?  Math.floor(sizes.length/20)  :   Math.floor(sizes.length / 20) +1
+            content: nuevaOps,
+             totalPages: (ops.length % 10 == 0)  ?  Math.floor(ops.length/20)  :   Math.floor(ops.length / 20) +1
             
           }
           res.json(sizeResponse);

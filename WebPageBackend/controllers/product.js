@@ -484,27 +484,28 @@ const putImgProduct = async (req, res) => {
       throw publicURLError;
     }
 
-    async function deleteTemporaryFile(fileName) {
-      try {
-        const { error } = await supabase.storage
-      .from('productImages')
-      .remove([`public/${fileName}`]);
     
-        if (error) throw error;
-    
-        console.log('Archivo temporal eliminado exitosamente:', fileName);
-      } catch (error) {
-        console.error('Error eliminando el archivo temporal:', error.message);
-      }
-    }
-    const delay = 10 * 60 * 1000; // 10 minutos en milisegundos
+    const delay = 5 * 60 * 1000; // 5 minutos en milisegundos
     setTimeout(async () => {
       const product = await prisma.product.findFirst({ 
         where:{ imgUrl:filename}});
+        console.log('el producto es:')
      if (!product) {
       console.log('Iniciando limpieza de imagenes temporales...');
-      await deleteTemporaryFile(filename);
-      console.log('Limpieza completada.');
+      try {
+        const { error } = await supabase.storage
+      .from('productImages')
+      .remove([`public/${filename}`]);
+    
+        if (error) throw error;
+    
+        console.log('Archivo temporal eliminado exitosamente:', filename);
+      } catch (error) {
+        console.error('Error eliminando el archivo temporal:', error.message);
+      }
+    
+     }else{
+      console.log('Archivo temporal guardado :', filename);
      }
      console.log('Limpieza completada.');
 

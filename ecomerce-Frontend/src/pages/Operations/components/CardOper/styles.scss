@@ -22,7 +22,7 @@
    flex-direction: row;
   }
   .col-ini {
-    min-width:30% ;
+    min-width:40% ;
     font-family: 'Lucida Sans';
     font-style: normal;
     padding-right: 20px;
@@ -74,7 +74,7 @@
 @media (max-width: 768px) {
   .main-row {
     .col-name {
-      width: 50%;
+      width: 100%;
     }
     .col-category {
       width: 30%;
@@ -85,7 +85,7 @@
     .category-button {
       width: 100px;
       
-      margin-left: 10px;
+      margin-left: 5px;
 
       .a{
         font-size: 15px;
@@ -98,16 +98,26 @@
 @media (max-width: 576px) {
   .main-row {
     .col-name {
+      padding-right: 5px;
       width: 100%;
       h2{
         font-size: 15px;
       }
     }
+    .col-ini {
+      min-width:30% ;
+    
+      padding-right: 10px;
+  
+    }
+      
+  
    
 
   }
 
   .buttons-container{
+    margin: 0;
     font-size: 10px ;
     width: 100%;
   }

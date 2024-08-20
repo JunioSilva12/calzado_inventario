@@ -24,15 +24,18 @@ const cardOper = ({  operation, onRemove }: Props) => {
   
   return (
     <div className="card-base border-radius-10 card-item">
-      <div className="main-row">
+       <h2>{operation.nameProduct.toUpperCase()}</h2>
+      <div className="main-row">        
       <div className="col-ini">
+   
       <Link to={`/products/${operation.productId}`} >
         <h2 >Id: {operation.productId}</h2>
       </Link>
           <h2 >Talla: {operation.SizeId}</h2>
+          
         </div>
         <div className="col-name">
-          <h2 className=""> cant: {operation.quantity}</h2>
+          <h2 className="">{`cant: ${operation.quantity}`}</h2>
         </div>
         <div className="col-name ">
         <h2 className="">{`${day+1}/${month+1}/${year}`}</h2>

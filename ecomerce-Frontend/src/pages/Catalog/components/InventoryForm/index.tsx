@@ -137,6 +137,7 @@ const InventoryForm = ({ productSizes , reload, setCreating }: Props) => {
                getOptionValue={(option: Size) => String(option.size)}
                className="categories-select"
                placeholder="tallas..."
+               isSearchable={false}
                 
               
               
