@@ -53,7 +53,7 @@ const List = () => {
     const params = {
       type:TransactionType.Exit,
       page: activePage,
-      linesPerPage: 4,
+      linesPerPage: 15,
       name: name,
       provider:provider?.idProvider,
       date:date

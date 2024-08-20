@@ -62,7 +62,27 @@ const getTransactions = async (req, res)  => {
 
   
     try {
-        const ops = await prisma.transactions.findMany({ where:where , include:include});
+      const paginationOptions = {};
+   
+   
+        const totalItems = await prisma.transactions.count({
+          where:where
+      });
+  
+      let totalPages=1;
+      if ((query.page) && (query.linesPerPage)) {
+          const skip = parseInt(query.page) * parseInt(query.linesPerPage);
+          const take = parseInt(query.linesPerPage);
+          paginationOptions.skip = skip;
+          paginationOptions.take = take;
+           // Calcular el total de páginas
+       totalPages = Math.ceil(totalItems / take);
+      }
+
+
+
+
+        const ops = await prisma.transactions.findMany({ where:where , include:include,...paginationOptions});
         console.log(ops)
         const nuevaOps = ops.map(item => {
           return {
@@ -72,7 +92,7 @@ const getTransactions = async (req, res)  => {
         });
        const  sizeResponse ={
             content: nuevaOps,
-             totalPages: (ops.length % 10 == 0)  ?  Math.floor(ops.length/20)  :   Math.floor(ops.length / 20) +1
+             totalPages: totalPages
             
           }
           res.json(sizeResponse);

@@ -59,7 +59,7 @@ console.log("resultado",categoryResponse);
     const params = {
       name: name,
       page: activePage,
-      linesPerPage: 4,
+      linesPerPage: 15,
       direction: direction,
       orderBy: 'id'
     }

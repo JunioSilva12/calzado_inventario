@@ -32,7 +32,25 @@ const getProducts = async (req, res)  => {
     }
 
     console.log("query...",where);
+ 
+    const paginationOptions = {};
+   
     try {
+      const totalItems = await prisma.product.count({
+        where:where
+    });
+
+    let totalPages=1;
+    if ((query.page) && (query.linesPerPage)) {
+        const skip = parseInt(query.page) * parseInt(query.linesPerPage);
+        const take = parseInt(query.linesPerPage);
+        paginationOptions.skip = skip;
+        paginationOptions.take = take;
+         // Calcular el total de páginas
+     totalPages = Math.ceil(totalItems / take);
+    }
+
+
          products = await prisma.product.findMany( {
           where:where,
           include: {
@@ -41,7 +59,8 @@ const getProducts = async (req, res)  => {
                 category: true,
               }
             }
-           } // Incluye las categorías relacionadas que pendejo soyyyyyyyyyyyyyyyyyyyyy
+           },// Incluye las categorías relacionadas que pendejo soyyyyyyyyyyyyyyyyyyyyy
+           ...paginationOptions
           });
 
         
@@ -80,7 +99,7 @@ const getProducts = async (req, res)  => {
          //   console.log(".productos.",updatedProducts[0])
             const  ProductResponse ={
             content: updatedProducts,
-            totalPages: (products.length % 10 == 0)  ?  Math.floor(products.length/20)  :   Math.floor(products.length / 20) +1
+            totalPages: totalPages
             
           }
            res.json(ProductResponse);
@@ -491,13 +510,13 @@ const putImgProduct = async (req, res) => {
 
     const countdownInterval = setInterval(() => {
       remainingTime -= 10;
-      console.log(`Faltan ${remainingTime} segundos para verificar o eliminar la imagen.`);
+      console.log(`Faltan ${remainingTime} segundos para verificar o eliminar la imagen.${filename}`);
   }, 10 * 1000); 
     setTimeout(async () => {
       clearInterval(countdownInterval); // Detener la cuenta regresiva
       const product = await prisma.product.findFirst({ 
         where:{ imgUrl:filename}});
-        console.log('el producto es:')
+        console.log('el producto es:',product)
      if (!product) {
       console.log('Iniciando limpieza de imagenes temporales...');
       try {

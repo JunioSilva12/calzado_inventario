@@ -28,11 +28,28 @@ const getProviders = async (req, res)  => {
 
 
     try {
-        const providers = await prisma.provider.findMany({where:where,orderBy:orderBy});
+        const paginationOptions = {};    
+          const totalItems = await prisma.provider.count({
+            where:where
+        });
+    
+        let totalPages=1;
+        if ((query.page) && (query.linesPerPage)) {
+            const skip = parseInt(query.page) * parseInt(query.linesPerPage);
+            const take = parseInt(query.linesPerPage);
+            paginationOptions.skip = skip;
+            paginationOptions.take = take;
+             // Calcular el total de páginas
+         totalPages = Math.ceil(totalItems / take);
+        }
+
+
+
+        const providers = await prisma.provider.findMany({where:where,orderBy:orderBy,...paginationOptions});
    //     console.log(categories)
        const  providerResponse ={
             content: providers,
-             totalPages: (providers.length % 10 == 0)  ?  Math.floor(providers.length/20)  :   Math.floor(providers.length / 20) +1
+             totalPages: totalPages
             
           }
           res.json(providerResponse);

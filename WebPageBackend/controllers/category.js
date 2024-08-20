@@ -9,7 +9,12 @@ const {prisma} = require('../config/posgresql');
 const getCategories = async (req, res)  => {
     const query = req.query;
     console.log("filters...",query);
+   
+    const paginationOptions = {};
+   
+  
     
+
     const where = {};
     const orderBy = {};
 
@@ -26,15 +31,31 @@ const getCategories = async (req, res)  => {
     
 
     try {
-        const categories = await prisma.category.findMany({where:where,orderBy:orderBy});
+           // Obtener el total de registros que coinciden con el filtro
+           const totalItems = await prisma.category.count({
+            where:where
+        });
+
+        let totalPages=1;
+        if ((query.page) && (query.linesPerPage)) {
+            const skip = parseInt(query.page) * parseInt(query.linesPerPage);
+            const take = parseInt(query.linesPerPage);
+            paginationOptions.skip = skip;
+            paginationOptions.take = take;
+             // Calcular el total de páginas
+         totalPages = Math.ceil(totalItems / take);
+        }
+       
+        const categories = await prisma.category.findMany({where:where,orderBy:orderBy,  ...paginationOptions,});
    //     console.log(categories)
        const  categoryResponse ={
             content: categories,
-             totalPages: (categories.length % 10 == 0)  ?  Math.floor(categories.length/20)  :   Math.floor(categories.length / 20) +1
+             totalPages: totalPages
             
           }
            res.json(categoryResponse);
     } catch (error) {
+        console.log(error)
         res.status(500).json({ message: 'Error al obtener las categorias' });
     }
 };

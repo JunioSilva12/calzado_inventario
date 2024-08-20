@@ -49,7 +49,7 @@ const List = () => {
   const getProducts = useCallback(() => {
     const params = {
       page: activePage,
-      linesPerPage: 4,
+      linesPerPage: 20,
       name: name,
       categoryId: category?.id,
       provider:provider?.idProvider,

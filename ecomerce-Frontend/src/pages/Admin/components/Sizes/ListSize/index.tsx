@@ -1,4 +1,3 @@
-import Pagination from "../../../../../core/components/Pagination";
 import { SizeResponse } from "../../../../../core/types/size";
 import { makePrivateRequest, makeRequest } from "../../../../../core/utils/request";
 import { SetStateAction, useCallback, useEffect, useState } from "react";
@@ -11,7 +10,6 @@ const ListCategory = () => {
   console.log("categorias renderizando 2");
   const [sizeResponse, setSizeResponse] = useState<SizeResponse>();
   const [isLoading, setIsLoading] = useState(false);
-  const [activePage, setActivePage] = useState(0);
   const history = useNavigate();
 console.log("resultado",sizeResponse);
 
@@ -39,8 +37,8 @@ console.log("resultado",sizeResponse);
   const getCategories = useCallback(() => {
     const params = {
      
-      page: activePage,
-      linesPerPage: 4,
+     
+    
      
       orderBy: 'id'
     }
@@ -50,7 +48,7 @@ console.log("resultado",sizeResponse);
       .finally(() => {
         setIsLoading(false);
       })
-  }, [activePage])
+  }, [])
 
   useEffect(() => {
     getCategories();
@@ -76,13 +74,7 @@ console.log("resultado",sizeResponse);
           ))
         )}
 
-        {sizeResponse &&
-          <Pagination
-            totalPages={sizeResponse?.totalPages}
-            activePage={activePage}
-            onChange={page => setActivePage(page)}
-          />
-        }
+       
       </div>
     </div>
   );
