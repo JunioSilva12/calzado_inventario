@@ -506,6 +506,8 @@ const putImgProduct = async (req, res) => {
     
     const delay = 5 * 60 * 1000; // 5 minutos en milisegundos
     let remainingTime = delay/1000;
+    const retries = 3;
+    const retryInterval = 60 * 1000; // 1 minuto en milisegundos
 
 
     const countdownInterval = setInterval(() => {
@@ -513,31 +515,44 @@ const putImgProduct = async (req, res) => {
       console.log(`Faltan ${remainingTime} segundos para verificar o eliminar la imagen.${filename}`);
   }, 10 * 1000); 
     setTimeout(async () => {
+
       clearInterval(countdownInterval); // Detener la cuenta regresiva
+      for (let attempt = 1; attempt <= retries; attempt++) {
+      
       const product = await prisma.product.findFirst({ 
         where:{ imgUrl:filename}});
         console.log('el producto es:',product)
-     if (!product) {
-      console.log('Iniciando limpieza de imagenes temporales...');
-      try {
-        const { error } = await supabase.storage
-      .from('productImages')
-      .remove([`public/${filename}`]);
-    
-        if (error) throw error;
-    
-        console.log('Archivo temporal eliminado exitosamente:', filename);
-      } catch (error) {
-        console.error('Error eliminando el archivo temporal:', error.message);
+
+        if (product) {
+        //  console.log("Producto encontrado, no se eliminará la imagen.");
+          console.log('Archivo temporal guardado :', filename)
+          break; // Si se encuentra el producto, salir del bucle
+      } else {
+        console.log('Iniciando limpieza de imagenes temporales...');
+          console.log(`Producto no encontrado. Intento ${attempt} fallido.`);
+
+          if (attempt === retries) {
+              console.log("Eliminando la imagen después de 3 intentos fallidos.");
+              try {
+                const { error } = await supabase.storage
+              .from('productImages')
+              .remove([`public/${filename}`]);
+            
+                if (error) throw error;
+            
+                console.log('Archivo temporal eliminado exitosamente:', filename);
+              } catch (error) {
+                console.error('Error eliminando el archivo temporal:', error.message);
+              }
+             // await deleteImageFromSupabase(imageUrl);
+          } else {
+              await new Promise(resolve => setTimeout(resolve, retryInterval)); // Esperar 1 minuto antes del siguiente intento
+          }
       }
-    
-     }else{
-      console.log('Archivo temporal guardado :', filename);
-     }
      console.log('Limpieza completada.');
 
 
-    }, delay);
+    }}, delay);
 
 
     res.status(200).send({ message: 'Imagen subida correctamente' , uri: filename });
